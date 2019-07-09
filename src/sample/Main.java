@@ -7,7 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import simulation.logic.DNAFragment;
 import simulation.comparators.NucleotidesDifferenceComparator;
+import simulation.logic.MutationSimulator;
+import simulation.logic.Mutator;
 import simulation.utils.StringConverter;
+import simulation.wrapper.MutationResults;
 
 public class Main extends Application {
 
@@ -21,14 +24,19 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        DNAFragment fragment1 = new DNAFragment(15);
-        System.out.println(StringConverter.convertListToString(fragment1.getNucleotides()));
 
-        DNAFragment fragment2 = new DNAFragment(12);
-        System.out.println(StringConverter.convertListToString(fragment2.getNucleotides()));
+        Mutator mutator = new Mutator(new DNAFragment(15));
 
-        System.out.println(new NucleotidesDifferenceComparator().compare(fragment1,fragment2));
+        System.out.println(mutator.getFragmentToMutate());
 
-        System.out.println(StringConverter.convertListToString(fragment1.getAminoAcids()));
+        MutationResults mutationResults = mutator.mutate();
+
+        System.out.println(StringConverter.convertListToString(mutator.getFragmentToMutate().getNucleotides()));
+
+        System.out.println(mutationResults.getNumberOfEntries());
+        System.out.println(mutationResults.getNumberOfInvariances());
+        System.out.println(mutationResults.getNumberOfRemovals());
+        System.out.println(mutationResults.getNumberOfReplacements());
+        System.out.println(StringConverter.convertListToString(mutationResults.getDnaFragmentMutated().getNucleotides()));
     }
 }

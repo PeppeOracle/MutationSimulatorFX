@@ -3,9 +3,11 @@ package simulation.logic;
 import org.apache.commons.math3.distribution.UniformIntegerDistribution;
 import simulation.enums.Nucleotide;
 import simulation.utils.NucleotidesUtils;
+import simulation.utils.StringConverter;
 import simulation.wrapper.MutationResults;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Mutator {
     /*
@@ -16,11 +18,11 @@ public class Mutator {
      */
     private double[][][] mutationProbabilities;
     private DNAFragment fragmentToMutate;
-
     private MutationResults mutationResults;
 
     public Mutator(DNAFragment sequenceToMutate){
         this.fragmentToMutate=sequenceToMutate;
+        mutationProbabilities = new double[4][4][3];
         for(int x=0 ; x<4 ; x++){
             for(int z=0; z<3 ; z++){
                 for(int y=0; y<4; y++){
@@ -62,7 +64,7 @@ public class Mutator {
         DNAFragment fragmentMutated = fragmentToMutate.clone();
 
         for(int i=0 ; i<fragmentMutated.getLength() ; i++){
-            muteI(i, fragmentMutated);
+            i = muteI(i, fragmentMutated);
         }
 
         mutationResults.setDnaFragmentMutated(fragmentMutated);
@@ -70,17 +72,17 @@ public class Mutator {
         return mutationResults;
     }
 
-    private void muteI(int position, DNAFragment fragmentMutated){
+    private int muteI(Integer position, DNAFragment fragmentMutated){
         int k = position % 3;
 
         int nucleotide = NucleotidesUtils.getIntByNucleotide(fragmentMutated.get(position));
 
-        double interval = 0;
+        double interval = mutationProbabilities[nucleotide][0][k];
         double opreal = Math.random();
 
         int op = 0;
         for (; op < 4; op++) {
-            if (opreal <= mutationProbabilities[nucleotide][op][k]) {
+            if (opreal <= interval) {
                 break;
             } else {
                 interval = interval + mutationProbabilities[nucleotide][op][k];
@@ -92,25 +94,31 @@ public class Mutator {
                 mutationResults.increaseEntries();
                 UniformIntegerDistribution pInserimento = new UniformIntegerDistribution(0, 3);
                 Nucleotide letteraIns = NucleotidesUtils.getNucleotideByInt(pInserimento.sample());
-                fragmentMutated.addNucleotide(k, letteraIns);
+                fragmentMutated.addNucleotide(position, letteraIns);
+                position++;
                 break;
             case 1:
                 mutationResults.increaseRemovals();
-                fragmentMutated.removeNucleotide(k);
+                fragmentMutated.removeNucleotide(position);
+                position--;
                 break;
             case 2:
                 mutationResults.increaseReplacements();
-                UniformIntegerDistribution pSostituzione = new UniformIntegerDistribution(0, 3);
+                UniformIntegerDistribution pSostituzione = new UniformIntegerDistribution(0, 2);
                 int letteraSostInt = pSostituzione.sample();
-                if (letteraSostInt == NucleotidesUtils.getIntByNucleotide(fragmentMutated.get(k)))
-                    letteraSostInt = (letteraSostInt + 1) % 4;
+
+                if(letteraSostInt >= NucleotidesUtils.getIntByNucleotide(fragmentMutated.get(position))) {
+                    letteraSostInt++;
+                }
+
                 Nucleotide letteraSost = NucleotidesUtils.getNucleotideByInt(letteraSostInt);
-                fragmentMutated.subNucleotide(k, letteraSost);
+                fragmentMutated.subNucleotide(position, letteraSost);
                 break;
             case 3:
                 mutationResults.increaseInvariances();
                 break;
             default:
         }
+        return position;
     }
 }

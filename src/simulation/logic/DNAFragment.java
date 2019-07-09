@@ -77,7 +77,8 @@ public class DNAFragment implements Cloneable{
     @Override
     public DNAFragment clone() {
         try {
-            DNAFragment sequenzaNucleotidi = new DNAFragment(this.nucleotidesSequence);
+            ArrayList<Nucleotide> list = (ArrayList<Nucleotide>) this.nucleotidesSequence.clone();
+            DNAFragment sequenzaNucleotidi = new DNAFragment(list);
             return sequenzaNucleotidi;
         }catch (Exception e){
             e.printStackTrace();
