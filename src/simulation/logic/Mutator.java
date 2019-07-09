@@ -3,6 +3,7 @@ package simulation.logic;
 import org.apache.commons.math3.distribution.UniformIntegerDistribution;
 import simulation.enums.Nucleotide;
 import simulation.utils.NucleotidesUtils;
+import simulation.wrapper.MutationResults;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,8 @@ public class Mutator {
      */
     private double[][][] mutationProbabilities;
     private DNAFragment fragmentToMutate;
+
+    private MutationResults mutationResults;
 
     public Mutator(DNAFragment sequenceToMutate){
         this.fragmentToMutate=sequenceToMutate;
@@ -46,14 +49,25 @@ public class Mutator {
         }
     }
 
-    public DNAFragment mutate(){
+    public DNAFragment getFragmentToMutate() {
+        return fragmentToMutate.clone();
+    }
+
+    public double[][][] getMutationProbabilities() {
+        return mutationProbabilities;
+    }
+
+    public MutationResults mutate(){
+        mutationResults = new MutationResults();
         DNAFragment fragmentMutated = fragmentToMutate.clone();
 
         for(int i=0 ; i<fragmentMutated.getLength() ; i++){
             muteI(i, fragmentMutated);
         }
 
-        return fragmentMutated;
+        mutationResults.setDnaFragmentMutated(fragmentMutated);
+
+        return mutationResults;
     }
 
     private void muteI(int position, DNAFragment fragmentMutated){
@@ -75,14 +89,17 @@ public class Mutator {
 
         switch (op) {
             case 0:
+                mutationResults.increaseEntries();
                 UniformIntegerDistribution pInserimento = new UniformIntegerDistribution(0, 3);
                 Nucleotide letteraIns = NucleotidesUtils.getNucleotideByInt(pInserimento.sample());
                 fragmentMutated.addNucleotide(k, letteraIns);
                 break;
             case 1:
+                mutationResults.increaseRemovals();
                 fragmentMutated.removeNucleotide(k);
                 break;
             case 2:
+                mutationResults.increaseReplacements();
                 UniformIntegerDistribution pSostituzione = new UniformIntegerDistribution(0, 3);
                 int letteraSostInt = pSostituzione.sample();
                 if (letteraSostInt == NucleotidesUtils.getIntByNucleotide(fragmentMutated.get(k)))
@@ -91,6 +108,7 @@ public class Mutator {
                 fragmentMutated.subNucleotide(k, letteraSost);
                 break;
             case 3:
+                mutationResults.increaseInvariances();
                 break;
             default:
         }
