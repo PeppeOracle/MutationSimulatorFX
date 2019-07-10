@@ -1,4 +1,4 @@
-package sample;
+package control;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,11 +14,14 @@ import simulation.wrapper.MutationResults;
 
 public class Main extends Application {
 
+    Stage actualStage;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("graphics/GestioneSimulazioni.fxml"));
+        this.actualStage=primaryStage;
         primaryStage.setTitle("Mutation Simulator");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 1080, 768));
         primaryStage.show();
     }
 

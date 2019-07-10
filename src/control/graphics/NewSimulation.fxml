@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.Button?>
+<AnchorPane prefHeight="768.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ControllerNewSimulation" fx:id="newSimulationAP">
+    <VBox >
+   <children>
+
+       <MenuBar
+               prefHeight="30.0" prefWidth="1080.0">
+           <menus>
+               <Menu mnemonicParsing="false" text="File">
+                   <items>
+                       <MenuItem mnemonicParsing="false" text="Nuova Simulazione" fx:id="NewSimulationMenuButton" onAction="#newSimulation"/>
+                       <MenuItem mnemonicParsing="false" text="Simulazioni Recenti" fx:id="RecentSimulationsMenuButton" onAction="#recentSimulations"/>
+                       <SeparatorMenuItem mnemonicParsing="false" />
+                       <MenuItem mnemonicParsing="false" text="Effettua Singola Mutazione" fx:id="SingleMutationMenuButton" onAction="#singleMutation"/>
+                       <SeparatorMenuItem mnemonicParsing="false" />
+                       <MenuItem mnemonicParsing="false" text="Nuovo Frammento di DNA" />
+                       <MenuItem mnemonicParsing="false" text="Frammenti di DNA Recenti" />
+                       <SeparatorMenuItem mnemonicParsing="false" />
+                       <MenuItem mnemonicParsing="false" text="Opzioni" />
+                       <MenuItem mnemonicParsing="false" text="Esci" />
+                   </items>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Modifica">
+                   <items>
+                       <MenuItem mnemonicParsing="false" text="Undo" />
+                       <MenuItem mnemonicParsing="false" text="Redo" />
+                       <SeparatorMenuItem mnemonicParsing="false" />
+                       <MenuItem mnemonicParsing="false" text="Cut" />
+                       <MenuItem mnemonicParsing="false" text="Copy" />
+                       <MenuItem mnemonicParsing="false" text="Paste" />
+                       <MenuItem mnemonicParsing="false" text="Delete" />
+                       <SeparatorMenuItem mnemonicParsing="false" />
+                       <MenuItem mnemonicParsing="false" text="Select All" />
+                       <MenuItem mnemonicParsing="false" text="Unselect All" />
+                   </items>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Aiuto">
+                   <items>
+                       <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                   </items>
+               </Menu>
+           </menus>
+       </MenuBar>
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+         <children>
+            <BorderPane layoutX="174.0" layoutY="83.0" prefHeight="743.0" prefWidth="1080.0" style="-fx-background-color: lightgrey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <top>
+                  <Label text="Nuova Simulazione" textFill="#0daeff" BorderPane.alignment="TOP_LEFT">
+                     <font>
+                        <Font name="Gadugi" size="32.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets left="35.0" top="10.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </top>
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="Nome">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="35.0" top="30.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextArea prefHeight="28.0" prefWidth="528.0">
+                           <VBox.margin>
+                              <Insets left="35.0" right="500.0" top="10.0" />
+                           </VBox.margin>
+                        </TextArea>
+                        <Label layoutX="40.0" layoutY="60.0" text="Descrizione">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="35.0" top="30.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextArea prefHeight="421.0" prefWidth="1062.0">
+                           <VBox.margin>
+                              <Insets left="35.0" right="50.0" top="10.0" />
+                           </VBox.margin>
+                        </TextArea>
+                     </children>
+                      <Button minHeight="30.0" minWidth="100.0" onAction="#nextPage" text="Next" />
+                  </VBox>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
+    </AnchorPane>

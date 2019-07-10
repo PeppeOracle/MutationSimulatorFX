@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane
+        VBox.vgrow="NEVER" fx:id="menuBar"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="control.Main">
+<fx:define>
+    <MenuBar
+             prefHeight="50.0" prefWidth="1080.0">
+        <menus>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Nuova Simulazione" fx:id="NewSimulationMenuButton"/>
+                    <MenuItem mnemonicParsing="false" text="Simulazioni Recenti" fx:id="RecentSimulationsMenuButton"/>
+                    <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem mnemonicParsing="false" text="Effettua Singola Mutazione" fx:id="SingleMutationMenuButton"/>
+                    <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem mnemonicParsing="false" text="Nuovo Frammento di DNA" />
+                    <MenuItem mnemonicParsing="false" text="Frammenti di DNA Recenti" />
+                    <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem mnemonicParsing="false" text="Opzioni" />
+                    <MenuItem mnemonicParsing="false" text="Esci" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Modifica">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Undo" />
+                    <MenuItem mnemonicParsing="false" text="Redo" />
+                    <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem mnemonicParsing="false" text="Cut" />
+                    <MenuItem mnemonicParsing="false" text="Copy" />
+                    <MenuItem mnemonicParsing="false" text="Paste" />
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem mnemonicParsing="false" text="Select All" />
+                    <MenuItem mnemonicParsing="false" text="Unselect All" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Aiuto">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+</fx:define>
+</AnchorPane>
