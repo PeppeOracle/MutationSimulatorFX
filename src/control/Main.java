@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import simulation.logic.DNAFragment;
 import simulation.comparators.NucleotidesDifferenceComparator;
@@ -18,7 +19,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("graphics/GestioneSimulazioni.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("graphics/GestioneSimulazioni.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/GestioneSimulazioni.fxml"));
+
+        AnchorPane root = (AnchorPane) loader.load();
+        ControllerGestioneSimulazioni controllerNewSimulation = loader.getController();
+        controllerNewSimulation.mainPane = root;
+
+        //controllerNewSimulation.mainPane.getChildren().clear();
+        //controllerNewSimulation.mainPane.getChildren().setAll(root.getChildren());
+
         this.actualStage=primaryStage;
         primaryStage.setTitle("Mutation Simulator");
         primaryStage.setScene(new Scene(root, 1080, 768));
@@ -43,3 +53,4 @@ public class Main extends Application {
         System.out.println(StringConverter.convertListToString(mutationResults.getDnaFragmentMutated().getNucleotides()));
     }
 }
+

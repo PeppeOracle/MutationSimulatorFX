@@ -44,7 +44,7 @@ public class Mutator {
                     sum+=mutationProbabilities[x][y][z];
                 }
 
-                if(sum-1 >= 1e-16){
+                if(Math.abs(sum-1) >= 1e-16){
                     throw new IllegalArgumentException("The sum of probabilities of the operations must be equals to 1");
                 }
             }
@@ -66,11 +66,12 @@ public class Mutator {
         for(int i=0 ; i<fragmentMutated.getLength() ; i++){
             i = muteI(i, fragmentMutated);
         }
-
         mutationResults.setDnaFragmentMutated(fragmentMutated);
 
         return mutationResults;
     }
+
+    int m=0;
 
     private int muteI(Integer position, DNAFragment fragmentMutated){
         int k = position % 3;
@@ -85,7 +86,7 @@ public class Mutator {
             if (opreal <= interval) {
                 break;
             } else {
-                interval = interval + mutationProbabilities[nucleotide][op][k];
+                interval = interval + mutationProbabilities[nucleotide][op+1][k];
             }
         }
 
@@ -122,3 +123,4 @@ public class Mutator {
         return position;
     }
 }
+

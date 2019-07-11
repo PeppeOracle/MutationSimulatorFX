@@ -70,4 +70,15 @@ public class MutationResults {
     public void increaseInvariances(){
         numberOfInvariances++;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getName() +
+                "numberOfEntries=" + numberOfEntries +
+                ", numberOfReplacements=" + numberOfReplacements +
+                ", numberOfRemovals=" + numberOfRemovals +
+                ", numberOfInvariances=" + numberOfInvariances +
+                ", dnaFragmentMutated=" + dnaFragmentMutated +
+                '}';
+    }
 }

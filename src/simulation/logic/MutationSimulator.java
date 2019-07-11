@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import simulation.comparators.LabeledComparator;
 import simulation.wrapper.MutationResults;
-import simulation.wrapper.MutationSimulatorResults;
+import simulation.wrapper.SimulationResults;
 
 public class MutationSimulator {
     private Mutator mutator;
@@ -43,7 +43,7 @@ public class MutationSimulator {
         this.listOfLabeledComparator = listOfLabeledComparator;
     }
 
-    public MutationSimulatorResults executeMutation(){
+    public SimulationResults executeMutation(){
         MutationResults mutationResults = mutator.mutate();
         HashMap<String,Integer> map = new HashMap<>();
 
@@ -52,12 +52,12 @@ public class MutationSimulator {
             map.put(item.getLabel(), diff);
         }
 
-        MutationSimulatorResults mutationSimulatorResults = new MutationSimulatorResults(mutationResults, map);
+        SimulationResults mutationSimulatorResults = new SimulationResults(mutationResults, map);
         return mutationSimulatorResults;
     }
 
-    public ArrayList<MutationSimulatorResults> simulate(){
-        ArrayList<MutationSimulatorResults> results = new ArrayList<>();
+    public ArrayList<SimulationResults> simulate(){
+        ArrayList<SimulationResults> results = new ArrayList<>();
 
         for(int i = 0; i < iterations; i++){
             results.add(executeMutation());
