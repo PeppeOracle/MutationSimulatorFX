@@ -2,10 +2,7 @@ package control;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -14,7 +11,12 @@ public abstract class ControllerMenu {
     protected AnchorPane mainPane;
 
     public void newSimulation(ActionEvent actionEvent) throws IOException {
-        AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("graphics/NewSimulation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation1.fxml"));
+
+        AnchorPane root = (AnchorPane) loader.load();
+        ControllerNewSimulation1 controllerNewSimulation1 = loader.getController();
+        controllerNewSimulation1.mainPane = mainPane;
+
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
         /*
@@ -27,10 +29,25 @@ public abstract class ControllerMenu {
                         */
     }
 
-    public void singleMutation(ActionEvent actionEvent) {
+    public void singleMutation(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/ExecuteMutation1.fxml"));
+
+        AnchorPane root = (AnchorPane) loader.load();
+        ControllerExecuteMutation1 controllerExecuteMutation1 = loader.getController();
+        controllerExecuteMutation1.mainPane = mainPane;
+
+        mainPane.getChildren().clear();
+        mainPane.getChildren().setAll(root.getChildren());
     }
 
     public void recentSimulations(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("graphics/GestioneSimulazioni.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/GestioneSimulazioni.fxml"));
+
+        AnchorPane root = (AnchorPane) loader.load();
+        ControllerGestioneSimulazioni controllerGestioneSimulazioni= loader.getController();
+        controllerGestioneSimulazioni.mainPane = mainPane;
+
+        mainPane.getChildren().clear();
+        mainPane.getChildren().setAll(root.getChildren());
     }
 }

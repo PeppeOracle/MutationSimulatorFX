@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.control.Button?>
-<AnchorPane prefHeight="768.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ControllerNewSimulation" fx:id="newSimulationAP">
+<AnchorPane prefHeight="768.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ControllerNewSimulation1" fx:id="newSimulationAP">
     <VBox >
    <children>
 
@@ -55,9 +55,9 @@
                </Menu>
            </menus>
        </MenuBar>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+       <AnchorPane prefHeight="744.0" prefWidth="1080.0">
          <children>
-            <BorderPane layoutX="174.0" layoutY="83.0" prefHeight="743.0" prefWidth="1080.0" style="-fx-background-color: lightgrey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <BorderPane layoutX="174.0" layoutY="83.0" prefHeight="743.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>
                   <Label text="Nuova Simulazione" textFill="#0daeff" BorderPane.alignment="TOP_LEFT">
                      <font>
@@ -79,7 +79,7 @@
                               <Insets left="35.0" top="30.0" />
                            </VBox.margin>
                         </Label>
-                        <TextArea prefHeight="28.0" prefWidth="528.0">
+                        <TextArea fx:id="textName" prefHeight="28.0" prefWidth="528.0">
                            <VBox.margin>
                               <Insets left="35.0" right="500.0" top="10.0" />
                            </VBox.margin>
@@ -92,15 +92,24 @@
                               <Insets left="35.0" top="30.0" />
                            </VBox.margin>
                         </Label>
-                        <TextArea prefHeight="421.0" prefWidth="1062.0">
+                        <TextArea fx:id="textDescription" prefHeight="421.0" prefWidth="1062.0">
                            <VBox.margin>
                               <Insets left="35.0" right="50.0" top="10.0" />
                            </VBox.margin>
                         </TextArea>
                      </children>
-                      <Button minHeight="30.0" minWidth="100.0" onAction="#nextPage" text="Next" />
                   </VBox>
                </center>
+                <bottom>
+                    <Button onAction="#nextPage" prefWidth="100" mnemonicParsing="false" text="Next" BorderPane.alignment="CENTER_RIGHT">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                        <BorderPane.margin>
+                            <Insets bottom="12.0" right="10.0" />
+                        </BorderPane.margin>
+                    </Button>
+                </bottom>
             </BorderPane>
          </children>
       </AnchorPane>

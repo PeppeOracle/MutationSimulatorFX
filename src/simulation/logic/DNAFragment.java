@@ -63,7 +63,7 @@ public class DNAFragment implements Cloneable{
     public ArrayList<AminoAcid> getAminoAcids() {
         ArrayList<AminoAcid> sequence = new ArrayList<AminoAcid>();
 
-        for (int i = 0; i < this.getLength(); i += 3) {
+        for (int i = 0; i+2 < this.getLength(); i += 3) {
             ArrayList<Nucleotide> codon = new ArrayList<Nucleotide>();
             codon.add(this.get(i));
             codon.add(this.get(i+1));

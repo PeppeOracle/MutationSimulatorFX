@@ -5,7 +5,7 @@ import simulation.logic.DNAFragment;
 public class NucleotidesDifferenceComparator extends LabeledComparator{
 
     public NucleotidesDifferenceComparator(){
-        super("NUCLEOTIDES-DIFF");
+        super("NUCLEOTIDES-DIFF", "Numero di Nucleotidi diversi");
     }
 
     @Override
