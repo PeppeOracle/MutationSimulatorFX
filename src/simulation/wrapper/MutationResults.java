@@ -3,9 +3,10 @@ package simulation.wrapper;
 
 import simulation.logic.DNAFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MutationResults {
+public class MutationResults implements Serializable {
     private int numberOfEntries;
     private int numberOfReplacements;
     private int numberOfRemovals;

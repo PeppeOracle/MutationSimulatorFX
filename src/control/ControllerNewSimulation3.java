@@ -20,6 +20,8 @@ import simulation.comparators.*;
 import simulation.logic.MutationSimulator;
 import simulation.logic.Mutator;
 import simulation.statistics.ParameterIndex;
+import simulation.store.SimulationStore;
+import simulation.wrapper.Simulation;
 import simulation.wrapper.SimulationResults;
 
 import java.awt.*;
@@ -42,6 +44,7 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
     MutationSimulator mutationSimulator;
     ArrayList<LabeledComparator> comparators;
     ParameterIndex parameterIndex;
+    Simulation simulation;
 
     @FXML
     VBox radioBox;
@@ -98,6 +101,9 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
         controllerNewSimulation3.mainPane=mainPane;
         controllerNewSimulation3.setMutator(mutator);
 
+        controllerNewSimulation3.setSimulation(simulation);
+
+
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
 
@@ -110,6 +116,8 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
         */
 
         mutationSimulator = new MutationSimulator(mutator,iterations,comparators);
+
+        controllerNewSimulation3.setMutationSimulator(mutationSimulator);
 
         simResults = mutationSimulator.simulate();
 
@@ -129,6 +137,10 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
         initializeRadio();
         initializeChart();
         initializeStatistics();
+
+        saveSimulation();
+
+        controllerNewSimulation3.setSimulation(simulation);
     }
 
     private void initializeRadio() {
@@ -171,8 +183,21 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
         barChartAP.getChildren().add(barChart);
     }
 
+    public void saveSimulation(){
+        simulation = new Simulation(name, description, simResults);
+
+        ArrayList<Simulation> simulations = null;
+        simulations=(ArrayList<Simulation>)SimulationStore.readAllItem("simulations");
+        if(simulations==null){
+            simulations=new ArrayList<Simulation>();
+        }
+        simulations.add(simulation);
+        SimulationStore.writeAllItem("simulations",simulations);
+
+    }
+
     public void chooseParameter(ActionEvent actionEvent){
-        //((RadioButton)actionEvent.getSource()).
+        //((RadioButton)actionEvent. getSource()). ;
     }
 
     public void setName(String name){
@@ -187,7 +212,29 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
         this.mutator=mutator;
     }
 
+    public void setMutationSimulator(MutationSimulator mutationSimulator) {
+        this.mutationSimulator = mutationSimulator;
+    }
+
     public void setIterations(int iterations) {
         this.iterations=iterations;
+    }
+
+    public void setSimulation(Simulation simulation){
+        this.simulation = simulation;
+    }
+
+    public void variateStatistic(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/VariateStatistic1.fxml"));
+
+        AnchorPane root = (AnchorPane) loader.load();
+        ControllerVariateStatistic1 controllerVariateStatistic1 = loader.getController();
+        controllerVariateStatistic1.mainPane = mainPane;
+        controllerVariateStatistic1.setMutationSimulator(mutationSimulator);
+        controllerVariateStatistic1.setSimulation(simulation);
+
+        mainPane.getChildren().clear();
+        mainPane.getChildren().setAll(root.getChildren());
     }
 }

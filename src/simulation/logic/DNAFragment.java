@@ -4,10 +4,11 @@ import simulation.utils.AminoAcidUtils;
 import simulation.enums.AminoAcid;
 import simulation.enums.Nucleotide;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class DNAFragment implements Cloneable{
+public class DNAFragment implements Cloneable, Serializable {
     private ArrayList<Nucleotide> nucleotidesSequence;
 
     public DNAFragment(int length){

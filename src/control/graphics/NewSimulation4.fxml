@@ -68,16 +68,6 @@
                            </BorderPane.margin>
                         </Label>
                      </top>
-                     <bottom>
-                        <Button mnemonicParsing="false" onAction="#recentSimulations" prefWidth="150" text="Torna alla home" BorderPane.alignment="CENTER_RIGHT">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <BorderPane.margin>
-                              <Insets bottom="5.0" right="10.0" />
-                           </BorderPane.margin>
-                        </Button>
-                     </bottom>
                      <center>
                         <VBox maxWidth="600.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
                            <BorderPane.margin>
@@ -137,6 +127,25 @@
                            </BorderPane.margin>
                         </BorderPane>
                      </right>
+                     <bottom>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#variateStatistic" prefWidth="150" text="Statistiche variabili">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="930.0" layoutY="45.0" mnemonicParsing="false" onAction="#recentSimulations" prefWidth="150" text="Torna alla home">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                     </bottom>
                   </BorderPane>
                </children>
             </AnchorPane>

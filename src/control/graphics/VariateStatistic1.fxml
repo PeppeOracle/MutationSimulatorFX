@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polyline?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="variateStatistic1AP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ControllerVariateStatistic1">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <MenuBar prefHeight="30.0" prefWidth="1080.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem fx:id="NewSimulationMenuButton" mnemonicParsing="false" onAction="#newSimulation" text="Nuova Simulazione" />
+                                <MenuItem fx:id="RecentSimulationsMenuButton" mnemonicParsing="false" onAction="#recentSimulations" text="Simulazioni Recenti" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem fx:id="SingleMutationMenuButton" mnemonicParsing="false" onAction="#singleMutation" text="Effettua Singola Mutazione" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem mnemonicParsing="false" text="Nuovo Frammento di DNA" />
+                                <MenuItem mnemonicParsing="false" text="Frammenti di DNA Recenti" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem mnemonicParsing="false" text="Opzioni" />
+                                <MenuItem mnemonicParsing="false" text="Esci" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Modifica">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Undo" />
+                                <MenuItem mnemonicParsing="false" text="Redo" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem mnemonicParsing="false" text="Cut" />
+                                <MenuItem mnemonicParsing="false" text="Copy" />
+                                <MenuItem mnemonicParsing="false" text="Paste" />
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem mnemonicParsing="false" text="Select All" />
+                                <MenuItem mnemonicParsing="false" text="Unselect All" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Aiuto">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <AnchorPane prefHeight="744.0" prefWidth="1080.0">
+                    <children>
+                        <BorderPane prefHeight="744.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <top>
+                                <Label text="Varia probabilità statistiche" textFill="#0daeff" BorderPane.alignment="TOP_LEFT">
+                                    <font>
+                                        <Font name="Gadugi" size="32.0" />
+                                    </font>
+                                    <BorderPane.margin>
+                                        <Insets left="35.0" top="10.0" />
+                                    </BorderPane.margin>
+                                </Label>
+                            </top>
+                            <center>
+                                <BorderPane maxHeight="185.0" maxWidth="532.0" prefHeight="183.0" prefWidth="532.0" BorderPane.alignment="CENTER">
+                                    <top>
+                                        <Label text="Probabilità" BorderPane.alignment="CENTER">
+                                            <font>
+                                                <Font size="24.0" />
+                                            </font>
+                                        </Label>
+                                    </top>
+                                    <center>
+                                        <AnchorPane fx:id="probabilitiesAP" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                        </AnchorPane>
+                                    </center>
+                                    <left>
+                                        <Polyline fx:id="leftArrow" fill="CHARTREUSE" onMouseReleased="#decreaseIndex" points="24.0, 119.0, 24.0, 142.0, 8.0, 130.0, 24.0, 119.0" strokeType="INSIDE" BorderPane.alignment="TOP_LEFT">
+                                            <BorderPane.margin>
+                                                <Insets right="10.0" top="50.0" />
+                                            </BorderPane.margin>
+                                        </Polyline>
+                                    </left>
+                                    <right>
+                                        <Polyline fx:id="rightArrow" fill="CHARTREUSE" onMouseReleased="#increaseIndex" points="24.0, 119.0, 24.0, 142.0, 8.0, 130.0, 24.0, 119.0" rotate="180.0" strokeType="INSIDE" BorderPane.alignment="TOP_LEFT">
+                                            <BorderPane.margin>
+                                                <Insets left="10.0" top="50.0" />
+                                            </BorderPane.margin>
+                                        </Polyline>
+                                    </right>
+                                    <bottom>
+                                        <HBox maxWidth="90.0" prefHeight="22.0" prefWidth="50.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Label text="Indice: " />
+                                                <Label fx:id="index" text="1" />
+                                            </children>
+                                            <BorderPane.margin>
+                                                <Insets />
+                                            </BorderPane.margin>
+                                        </HBox>
+                                    </bottom>
+                                    <BorderPane.margin>
+                                        <Insets left="230.0" />
+                                    </BorderPane.margin>
+                                </BorderPane>
+                            </center>
+                            <bottom>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <center>
+                                        <VBox maxWidth="500.0" minHeight="350.0" prefHeight="264.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <HBox prefHeight="0.0" prefWidth="500.0">
+                                                    <children>
+                                                        <Label text="Percentuale variazione">
+                                                            <font>
+                                                                <Font size="21.0" />
+                                                            </font>
+                                                        </Label>
+                                          <TextField fx:id="variationField">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                </HBox>
+                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="0.0" prefWidth="500.0">
+                                       <children>
+                                          <Label text="Numero iterazioni">
+                                             <font>
+                                                <Font size="21.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="iterationsField">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                            </children>
+                                        </VBox>
+                                    </center>
+                                    <bottom>
+                                        <Button mnemonicParsing="false" onAction="#nextPage" prefWidth="100" text="Next" BorderPane.alignment="CENTER_RIGHT">
+                                            <font>
+                                                <Font size="15.0" />
+                                            </font>
+                                            <BorderPane.margin>
+                                                <Insets bottom="5.0" right="10.0" />
+                                            </BorderPane.margin>
+                                        </Button>
+                                    </bottom>
+                                </BorderPane>
+                            </bottom>
+                            <right>
+                                <BorderPane maxHeight="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: Lightgrey;" BorderPane.alignment="CENTER">
+                                    <top>
+                                        <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: Lightgrey;" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../icons/settings.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <Label text="Opzioni">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                            </padding>
+                                        </HBox>
+                                    </top>
+                                    <center>
+                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <HBox maxHeight="20.0" maxWidth="180.0" prefHeight="100.0" prefWidth="150.0" spacing="5.0">
+                                                    <children>
+                                                        <Label text="Equiprobabilità operazioni" />
+                                                        <CheckBox fx:id="equalOp" mnemonicParsing="false" onAction="#checkEqualOp" />
+                                                    </children>
+                                                </HBox>
+                                                <HBox maxHeight="20.0" maxWidth="180.0" prefHeight="100.0" prefWidth="150.0" spacing="5.0">
+                                                    <children>
+                                                        <Label text="Equiprobabilità nucleotidi">
+                                                            <HBox.margin>
+                                                                <Insets right="4.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                        <CheckBox fx:id="equalNucleotides" mnemonicParsing="false" onAction="#checkEqualNucleotides">
+                                                            <HBox.margin>
+                                                                <Insets />
+                                                            </HBox.margin>
+                                                        </CheckBox>
+                                                    </children>
+                                                </HBox>
+                                                <HBox maxHeight="20.0" maxWidth="180.0" prefHeight="100.0" prefWidth="150.0" spacing="5.0">
+                                                    <children>
+                                                        <Label text="Equiprobabilità indici">
+                                                            <HBox.margin>
+                                                                <Insets right="28.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                        <CheckBox fx:id="equalIndex" mnemonicParsing="false" onAction="#checkEqualIndex" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                            <BorderPane.margin>
+                                                <Insets bottom="10.0" left="8.0" top="10.0" />
+                                            </BorderPane.margin>
+                                        </VBox>
+                                    </center>
+                                    <BorderPane.margin>
+                                        <Insets right="30.0" />
+                                    </BorderPane.margin>
+                                </BorderPane>
+                            </right>
+                        </BorderPane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -67,5 +67,15 @@ public class MutationSimulator {
         return results;
     }
 
+    public ArrayList<SimulationResults> simulate(){
+        ArrayList<SimulationResults> results = new ArrayList<>();
+
+        for(int i = 0; i < iterations; i++){
+            results.add(executeMutation());
+        }
+
+        return results;
+    }
+
 
 }

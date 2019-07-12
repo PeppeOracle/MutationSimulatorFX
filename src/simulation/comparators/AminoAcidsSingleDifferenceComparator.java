@@ -3,9 +3,10 @@ package simulation.comparators;
 import simulation.enums.AminoAcid;
 import simulation.logic.DNAFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AminoAcidsSingleDifferenceComparator extends LabeledComparator{
+public class AminoAcidsSingleDifferenceComparator extends LabeledComparator implements Serializable {
 
     public AminoAcidsSingleDifferenceComparator(){
         super("AMINOACIDS-SINGLEDIFF","Numero di sequenze con almeno un Amminoacido diverso");

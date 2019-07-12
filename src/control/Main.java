@@ -10,8 +10,10 @@ import simulation.logic.DNAFragment;
 import simulation.comparators.NucleotidesDifferenceComparator;
 import simulation.logic.MutationSimulator;
 import simulation.logic.Mutator;
+import simulation.store.SimulationStore;
 import simulation.utils.StringConverter;
 import simulation.wrapper.MutationResults;
+import simulation.wrapper.Simulation;
 
 public class Main extends Application {
 
@@ -36,7 +38,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        //launch(args);
+        launch(args);
 
         Mutator mutator = new Mutator(new DNAFragment(15));
 
@@ -51,14 +53,6 @@ public class Main extends Application {
         System.out.println(mutationResults.getNumberOfRemovals());
         System.out.println(mutationResults.getNumberOfReplacements());
         System.out.println(StringConverter.convertListToString(mutationResults.getDnaFragmentMutated().getNucleotides()));
-
-
-        int numberOfSimulation = 11;
-        if( (numberOfSimulation % 2) == 0 ){
-            System.out.println("perno " + numberOfSimulation / 2);
-        }else {
-            System.out.println("perno " + ( (numberOfSimulation / 2) + 1) );
-        }
     }
 }
 

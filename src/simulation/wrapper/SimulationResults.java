@@ -2,11 +2,12 @@ package simulation.wrapper;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-public class SimulationResults {
+public class SimulationResults implements Serializable {
     private MutationResults mutationResults;
     private HashMap<String,Integer> hashMapOfLabeledComparator;
 
@@ -14,7 +15,6 @@ public class SimulationResults {
         this.mutationResults = mutationResults;
         this.hashMapOfLabeledComparator = hashMapOfLabeledComparator;
     }
-
 
     public MutationResults getMutationResults() {
         return mutationResults;

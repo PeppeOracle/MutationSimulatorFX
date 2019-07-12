@@ -1,7 +1,10 @@
 package simulation.wrapper;
 
+import simulation.comparators.LabeledComparator;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Simulation implements Serializable {
     //se vogliamo fare le statistiche a run time
@@ -32,6 +35,16 @@ public class Simulation implements Serializable {
 
     public void setDescr(String descr) {
         this.descr = descr;
+    }
+
+    public ArrayList<String> getComparatorsLabel(){
+        ArrayList<String> list = new ArrayList<>();
+        for(Map.Entry<String,Integer> entry : listOfSimulationResults.get(0).getHashMapOfLabeledComparator().entrySet()){
+            list.add(entry.getKey());
+        }
+        return list;
+
+
     }
 
     public ArrayList<SimulationResults> getListOfSimulationResults() {

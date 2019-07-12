@@ -3,7 +3,9 @@ package simulation.comparators;
 import simulation.comparators.LabeledComparator;
 import simulation.logic.DNAFragment;
 
-public class NucleotidesSingleDifferenceComparator extends LabeledComparator {
+import java.io.Serializable;
+
+public class NucleotidesSingleDifferenceComparator extends LabeledComparator implements Serializable {
 
     public NucleotidesSingleDifferenceComparator(){
         super("NUCLEOTIDES-SINGLEDIFF", "Numero di sequenze con almeno un Nucleotide diverso");

@@ -16,9 +16,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import simulation.store.SimulationStore;
+import simulation.wrapper.Simulation;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControllerGestioneSimulazioni extends ControllerMenu implements Initializable{
@@ -36,7 +39,10 @@ public class ControllerGestioneSimulazioni extends ControllerMenu implements Ini
     AnchorPane gestioneAP;
 
     int gridRows;
+    String name;
     RowConstraints rowConstraints;
+
+    ArrayList<Simulation> simulations;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,19 +51,23 @@ public class ControllerGestioneSimulazioni extends ControllerMenu implements Ini
         //rowConstraints.setPrefHeight(100);
 
         int j;
+        simulations=new ArrayList<>();
+        SimulationStore.writeAllItem("simulations",simulations);
+        simulations = (ArrayList<Simulation>)SimulationStore.readAllItem("simulations");
 
-        for(gridRows=0; gridRows < 9 ; gridRows++){
+        for(gridRows=0; gridRows < simulations.size(); gridRows++){
             for(j=0;j<3;j++){
-                Text node = null;
+                Label node = null;
                 switch (j){
                     case 0:
-                        node = new Text("Nome Simulazione "+ (gridRows+1));
+                        node = new Label(simulations.get(gridRows).getName());
                         break;
                     case 1:
-                        node = new Text("GG/MM/YYYY " + (gridRows+1));
+                        node = new Label("12/07/2019");
+                        //node = new Label(simulations.get(gridRows).getDate());
                         break;
                     case 2:
-                        node = new Text("Descrizione Simulazione " + (gridRows+1));
+                        node = new Label(simulations.get(gridRows).getDescr());
                         break;
                 }
 
@@ -72,6 +82,8 @@ public class ControllerGestioneSimulazioni extends ControllerMenu implements Ini
                 e.printStackTrace();
             }
             System.out.println(optionImages);
+            optionImages.getChildren().get(0).setOnMouseReleased(e->{
+            });
             simulationsGrid.setConstraints(optionImages,j,gridRows);
             simulationsGrid.getChildren().add(optionImages);
 
@@ -84,16 +96,16 @@ public class ControllerGestioneSimulazioni extends ControllerMenu implements Ini
 
         for(int i=0;i<3;i++){
             for(j=0;j<3;j++){
-                Text node = null;
+                Label node = null;
                 switch (j){
                     case 0:
-                        node = new Text("Nome Simulazione "+ (gridRows+1));
+                        node = new Label("Nome Simulazione ");
                         break;
                     case 1:
-                        node = new Text("GG/MM/YYYY " + (gridRows+1));
+                        node = new Label("GG/MM/YYYY ");
                         break;
                     case 2:
-                        node = new Text("Descrizione Simulazione " + (gridRows+1));
+                        node = new Label("Descrizione Simulazione " + (gridRows+1));
                         break;
                 }
 
@@ -113,5 +125,9 @@ public class ControllerGestioneSimulazioni extends ControllerMenu implements Ini
             simulationsGrid.getRowConstraints().add(gridRows, rowConstraints);
             gridRows++;
         }
+    }
+
+    public void simulationResult(ActionEvent event){
+
     }
 }

@@ -1,5 +1,6 @@
 package simulation.logic;
 
+import simulation.statistics.ParameterIndex;
 import simulation.wrapper.Simulation;
 import simulation.wrapper.SimulationResults;
 
@@ -24,24 +25,34 @@ public class VariableSimulation {
         this.scale = scale;
 
         pivot = getPivot();
-        for(int i = 0; i < numberOfSimulation; i++){
+        for(int i = 1; i <= numberOfSimulation; i++){
             Simulation sim = new Simulation();
             Mutator mutator = this.mutationSimulator.getMutator();
             double p[][][] = new double[4][4][3];
             for(int x=0 ; x<4 ; x++){
                 for(int z=0; z<3 ; z++){
-                    for(int y=0; y<4; y++){
-                        double pPivot = p[x][y][z];
-                        if(i < pivot){
-                            pPivot =  pPivot - scale*pPivot*i;
-                            sim.setName(simulation.getName()+ " -" + i);
-                        }else if(i > pivot){
-                            pPivot =  pPivot + scale*pPivot*i;
-                            sim.setName(simulation.getName()+ " +" + i);
-                        }
+                    for(int y=0; y<3; y++){
+                        double pPivot = mutationSimulator.getMutator().getMutationProbabilities()[x][y][z];
 
+                        if (i < pivot) {
+                            pPivot = pPivot - scale * pPivot * i;
+                            sim.setName(simulation.getName() + " -" + (i % pivot));
+                        } else if (i > pivot) {
+                            pPivot = pPivot + scale * pPivot * i;
+                            sim.setName(simulation.getName() + " +" + (i % pivot));
+                        }
+                        p[x][y][z] = pPivot;
                     }
+                    p[x][3][z] = 1-(p[x][0][z]+p[x][1][z]+p[x][2][z]);
                 }
+            }
+
+            if (i < pivot) {
+                sim.setName(simulation.getName() + " -" + ((i % pivot) + 1));
+            } else if (i > pivot) {
+                sim.setName(simulation.getName() + " +" + ((i % pivot) + 1));
+            }else{
+                listOfSimulation.add(simulation);
             }
             sim.setDescr(simulation.getDescr());
             mutator.setMutationProbabilities(p);
@@ -61,11 +72,15 @@ public class VariableSimulation {
 
     public  ArrayList<Simulation> getSimulation(){
 
+        System.out.println("SIMULATIONS");
         for(int i = 0 ; i < numberOfSimulation; i++){
             Mutator mut = listOfMutator.get(i);
             Simulation sim = listOfSimulation.get(i);
             sim.setListOfSimulationResults(mutationSimulator.simulate(mut));
             listOfSimulation.set(i, sim);
+
+
+            System.out.println(i + " NAME " + sim.getName()); //+ " DIFF "+ sim.getListOfSimulationResults().get(0).getHashMapOfLabeledComparator().get("AMINOACIDS-DIFF"));
         }
 
         return listOfSimulation;
