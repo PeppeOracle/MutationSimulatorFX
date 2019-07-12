@@ -71,8 +71,6 @@ public class Mutator {
         return mutationResults;
     }
 
-    int m=0;
-
     private int muteI(Integer position, DNAFragment fragmentMutated){
         int k = position % 3;
 
@@ -122,5 +120,22 @@ public class Mutator {
         }
         return position;
     }
+
+    public void setMutationProbabilities(double[][][] mutationProbabilities) {
+        this.mutationProbabilities = mutationProbabilities;
+    }
+
+    public void setFragmentToMutate(DNAFragment fragmentToMutate) {
+        this.fragmentToMutate = fragmentToMutate;
+    }
+
+    public MutationResults getMutationResults() {
+        return mutationResults;
+    }
+
+    public void setMutationResults(MutationResults mutationResults) {
+        this.mutationResults = mutationResults;
+    }
+
 }
 

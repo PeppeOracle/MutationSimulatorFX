@@ -56,7 +56,8 @@ public class MutationSimulator {
         return mutationSimulatorResults;
     }
 
-    public ArrayList<SimulationResults> simulate(){
+    public ArrayList<SimulationResults> simulate(Mutator mutator){
+        setMutator(mutator);
         ArrayList<SimulationResults> results = new ArrayList<>();
 
         for(int i = 0; i < iterations; i++){
@@ -65,4 +66,6 @@ public class MutationSimulator {
 
         return results;
     }
+
+
 }

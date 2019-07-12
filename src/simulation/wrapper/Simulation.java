@@ -9,6 +9,9 @@ public class Simulation implements Serializable {
     private String descr;
     private ArrayList<SimulationResults> listOfSimulationResults;
 
+    public Simulation() {
+    }
+
     public Simulation(String name, String descr, ArrayList<SimulationResults> listOfSimulationResults) {
         this.name = name;
         this.descr = descr;
