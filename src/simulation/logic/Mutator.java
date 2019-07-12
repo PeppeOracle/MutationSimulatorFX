@@ -78,7 +78,6 @@ public class Mutator {
 
         double interval = mutationProbabilities[nucleotide][0][k];
         double opreal = Math.random();
-        System.out.println(opreal);
 
         int op = 0;
         for (; op < 4; op++) {

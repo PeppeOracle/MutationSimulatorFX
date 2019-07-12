@@ -25,6 +25,8 @@ public class VariableSimulation {
         this.scale = scale;
 
         pivot = getPivot();
+
+        System.out.println("perno " + pivot);
         for(int i = 1; i <= numberOfSimulation; i++){
             Simulation sim = new Simulation();
             Mutator mutator = this.mutationSimulator.getMutator();
@@ -35,11 +37,9 @@ public class VariableSimulation {
                         double pPivot = mutationSimulator.getMutator().getMutationProbabilities()[x][y][z];
 
                         if (i < pivot) {
-                            pPivot = pPivot - scale * pPivot * i;
-                            sim.setName(simulation.getName() + " -" + (i % pivot));
+                            pPivot = pPivot - (scale * pPivot * i);
                         } else if (i > pivot) {
-                            pPivot = pPivot + scale * pPivot * i;
-                            sim.setName(simulation.getName() + " +" + (i % pivot));
+                            pPivot = pPivot + (scale * pPivot * i);
                         }
                         p[x][y][z] = pPivot;
                     }
@@ -48,16 +48,21 @@ public class VariableSimulation {
             }
 
             if (i < pivot) {
-                sim.setName(simulation.getName() + " -" + ((i % pivot) + 1));
+                sim.setName(simulation.getName() + " -" + (i % pivot));
+                mutator.setMutationProbabilities(p);
+                listOfSimulation.add(sim);
+                listOfMutator.add(mutator);
             } else if (i > pivot) {
-                sim.setName(simulation.getName() + " +" + ((i % pivot) + 1));
+                sim.setName(simulation.getName() + " +" + (i % pivot));
+                mutator.setMutationProbabilities(p);
+                listOfSimulation.add(sim);
+                listOfMutator.add(mutator);
             }else{
-                listOfSimulation.add(simulation);
+                listOfSimulation.add(this.simulation);
+                listOfMutator.add(this.mutationSimulator.getMutator());
             }
-            sim.setDescr(simulation.getDescr());
-            mutator.setMutationProbabilities(p);
-            listOfSimulation.add(sim);
-            listOfMutator.add(mutator);
+
+
         }
     }
 
@@ -72,7 +77,6 @@ public class VariableSimulation {
 
     public  ArrayList<Simulation> getSimulation(){
 
-        System.out.println("SIMULATIONS");
         for(int i = 0 ; i < numberOfSimulation; i++){
             Mutator mut = listOfMutator.get(i);
             Simulation sim = listOfSimulation.get(i);
@@ -80,7 +84,6 @@ public class VariableSimulation {
             listOfSimulation.set(i, sim);
 
 
-            System.out.println(i + " NAME " + sim.getName()); //+ " DIFF "+ sim.getListOfSimulationResults().get(0).getHashMapOfLabeledComparator().get("AMINOACIDS-DIFF"));
         }
 
         return listOfSimulation;

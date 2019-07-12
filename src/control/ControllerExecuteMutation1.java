@@ -211,9 +211,6 @@ public class ControllerExecuteMutation1 extends ControllerMenu implements Initia
             fragmentToMutate = new DNAFragment(nucleotides);
         }
 
-        System.out.println(StringConverter.convertListToString(fragmentToMutate.getNucleotides()));
-        System.out.println(StringConverter.convertListToString(fragmentToMutate.getAminoAcids()));
-
         int r=7,c=4;
 
         if(equalNucleotides.isSelected()){
@@ -225,9 +222,6 @@ public class ControllerExecuteMutation1 extends ControllerMenu implements Initia
         }
 
         for(int z=0,i=0; i<3 ; i++){
-
-            System.out.println();
-            System.out.println();
             if(!equalIndex.isSelected()){
                 z=i;
             }
@@ -245,15 +239,12 @@ public class ControllerExecuteMutation1 extends ControllerMenu implements Initia
                         d=Double.valueOf(valueString);
                     }
                     probabilities[n][y][i]= d;
-                    System.out.print(d+"  ");
                 }
                 if((probabilities[n][0][i]+probabilities[n][1][i]+probabilities[n][2][i])<1){
                     probabilities[n][3][i]=1-(probabilities[n][0][i]+probabilities[n][1][i]+probabilities[n][2][i]);
                 } else{
                     probabilities[n][3][i]=0;
                 };
-                System.out.print(probabilities[n][3][i]+"  ");
-                System.out.println();
             }
         }
         Mutator mutator = new Mutator(fragmentToMutate,probabilities);
