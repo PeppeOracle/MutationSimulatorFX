@@ -9,6 +9,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -18,7 +19,10 @@ import javafx.scene.layout.VBox;
 import simulation.comparators.*;
 import simulation.logic.MutationSimulator;
 import simulation.logic.Mutator;
+import simulation.statistics.ParameterIndex;
+import simulation.wrapper.SimulationResults;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,9 +37,11 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
 
     ToggleGroup radioParametersGroup;
     ArrayList<RadioButton> radioParameters;
+    ArrayList<SimulationResults> simResults;
 
     MutationSimulator mutationSimulator;
     ArrayList<LabeledComparator> comparators;
+    ParameterIndex parameterIndex;
 
     @FXML
     VBox radioBox;
@@ -105,6 +111,10 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
 
         mutationSimulator = new MutationSimulator(mutator,iterations,comparators);
 
+        simResults = mutationSimulator.simulate();
+
+        parameterIndex = new ParameterIndex(comparators.get(0).getLabel(), simResults);
+
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Differenze");
 
@@ -118,6 +128,7 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
 
         initializeRadio();
         initializeChart();
+        initializeStatistics();
     }
 
     private void initializeRadio() {
@@ -134,16 +145,25 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
 
     private void initializeStatistics() {
 
+        /*NumberFormat formatter = NumberFormat.getNumberIstance();
+        formatter.setMaximumFractionsDigits(2);
+        Double numero = 123.1258965;
+        numero = Integer.parseInt(formatter.format(numero));*/
+
+        Label mean = new Label("Media: " + (float)parameterIndex.getMean());
+        Label median = new Label("Mediana: " + (float)parameterIndex.getMedian());
+        Label standardDeviation = new Label("Deviazione Standard: " + (float)parameterIndex.getStandardDeviation());
+        Label variance = new Label("Varianza: " + (float)parameterIndex.getVariance());
+        radioBox.getChildren().addAll(mean,median,standardDeviation,variance);
     }
 
     private void initializeChart(){
-
         XYChart.Series<String, Number> dataSeries1 = new XYChart.Series<String, Number>();
-        dataSeries1.setName("Prova");
+        dataSeries1.setName(comparators.get(0).getLabel());
 
-        dataSeries1.getData().add(new XYChart.Data<String, Number>(""+0,20 ));
-        dataSeries1.getData().add(new XYChart.Data<String, Number>(""+1,50 ));
-        dataSeries1.getData().add(new XYChart.Data<String, Number>(""+2,2 ));
+        for(Point point : parameterIndex.getPointsFrequency()){
+            dataSeries1.getData().add(new XYChart.Data<String, Number>(""+point.getX(),point.getY()));
+        }
 
         barChart.getData().add(dataSeries1);
 

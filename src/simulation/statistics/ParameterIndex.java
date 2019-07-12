@@ -12,21 +12,20 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 
 public class ParameterIndex {
     private String name;
     private DescriptiveStatistics descriptiveStatistics;
     private Frequency frequency;
-    private Set<Integer> set;
+    private HashSet<Integer> set;
 
     private ArrayList<SimulationResults> listOfSimulationResults;
 
     public ParameterIndex(String name, ArrayList<SimulationResults> listOfSimulationResults) {
+        this.set=new HashSet<Integer>();
+        this.descriptiveStatistics=new DescriptiveStatistics();
         this.name = name;
         this.listOfSimulationResults = listOfSimulationResults;
         frequency = new Frequency();
@@ -100,9 +99,8 @@ public class ParameterIndex {
 
     public ArrayList<Point> getPointsFrequency(){
         ArrayList<Point> points = new ArrayList<>();
-        Integer[] elements = (Integer[]) set.toArray();
 
-        for(Integer x : elements){
+        for(Integer x : set){
             points.add(new Point(x, (int) frequency.getCount(x)));
         }
 
@@ -110,14 +108,12 @@ public class ParameterIndex {
             @Override
             public int compare(Point o1, Point o2) {
                     int x1 = (int) o1.getX();
-                    int x2 = (int) o2.getY();
+                    int x2 = (int) o2.getX();
 
-                    if (x1 == x2)
-                        return 0;
-                    else if (x1 > x2)
-                        return 1;
-                    else
+                    if (x1 <= x2)
                         return -1;
+                    else
+                        return 1;
 
             }
         });

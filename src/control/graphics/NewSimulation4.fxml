@@ -110,7 +110,7 @@
                         </VBox>
                      </center>
                      <right>
-                        <BorderPane maxHeight="300.0" prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: Lightgrey;" BorderPane.alignment="CENTER">
+                        <BorderPane maxHeight="300.0" prefHeight="300.0" prefWidth="300.0" style="-fx-border-color: Lightgrey;" BorderPane.alignment="CENTER">
                            <top>
                               <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: Lightgrey;" BorderPane.alignment="CENTER">
                                  <children>
