@@ -69,7 +69,7 @@
                         </Label>
                      </top>
                      <bottom>
-                        <Button mnemonicParsing="false" onAction="#nextPage" prefWidth="150" text="Torna alla home" BorderPane.alignment="CENTER_RIGHT">
+                        <Button mnemonicParsing="false" onAction="#recentSimulations" prefWidth="150" text="Torna alla home" BorderPane.alignment="CENTER_RIGHT">
                            <font>
                               <Font size="15.0" />
                            </font>
