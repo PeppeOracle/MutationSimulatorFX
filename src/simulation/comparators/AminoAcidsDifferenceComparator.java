@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class AminoAcidsDifferenceComparator extends LabeledComparator implements Serializable {
 
     public AminoAcidsDifferenceComparator(){
-        super("AMINOACIDS-DIFF","Numero di Amminoacidi diversi");
+        super("AMINOACIDS-DIFF","Mutazioni missenso (Differenze di amminoacidi)");
     }
 
     @Override

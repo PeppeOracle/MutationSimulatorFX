@@ -166,6 +166,23 @@
                                           </CheckBox>
                                        </children>
                                     </HBox>
+                                    <HBox prefHeight="0.0" prefWidth="500.0">
+                                       <children>
+                                          <Label text="Statistiche sui tipi di mutazioni della lunghezza delle sequenze">
+                                             <font>
+                                                <Font size="21.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox mnemonicParsing="false" onAction="#checkLENGTHDIFF" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="6.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </CheckBox>
+                                       </children>
+                                    </HBox>
                                  </children>
                                  <padding>
                                     <Insets left="5.0" />

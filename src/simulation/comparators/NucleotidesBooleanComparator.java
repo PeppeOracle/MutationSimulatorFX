@@ -5,10 +5,12 @@ import simulation.logic.DNAFragment;
 
 import java.io.Serializable;
 
-public class NucleotidesSingleDifferenceComparator extends LabeledComparator implements Serializable {
+public class NucleotidesBooleanComparator extends LabeledCategoryComparator implements Serializable {
 
-    public NucleotidesSingleDifferenceComparator(){
-        super("NUCLEOTIDES-SINGLEDIFF", "Numero di sequenze con almeno un Nucleotide diverso");
+    private static final String[] categories= {"Non Silente","Silente"};
+
+    public NucleotidesBooleanComparator(){
+        super("NUCLEOTIDES-BOOLEANDIFF", "Numero di sequenze con almeno un Nucleotide diverso",categories);
     }
 
     @Override

@@ -18,7 +18,7 @@
             <Menu mnemonicParsing="false" text="File">
                 <items>
                     <MenuItem mnemonicParsing="false" text="Nuova Simulazione" fx:id="NewSimulationMenuButton"/>
-                    <MenuItem mnemonicParsing="false" text="Simulazioni Recenti" fx:id="RecentSimulationsMenuButton"/>
+                    <MenuItem mnemonicParsing="false" text="Gestione Simulazioni" fx:id="RecentSimulationsMenuButton"/>
                     <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem mnemonicParsing="false" text="Effettua Singola Mutazione" fx:id="SingleMutationMenuButton"/>
                     <SeparatorMenuItem mnemonicParsing="false" />
@@ -45,7 +45,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Aiuto">
                 <items>
-                    <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                    <MenuItem mnemonicParsing="false" text="About Mutation Simulator" />
                 </items>
             </Menu>
         </menus>

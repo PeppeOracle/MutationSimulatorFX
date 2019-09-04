@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="control.ControllerRandom"
+            prefHeight="-Infinity" prefWidth="-Infinity">
+    <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <center>
+            <VBox maxWidth="500.0" minHeight="350.0" prefHeight="264.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+                <children>
+                    <HBox prefHeight="0.0" prefWidth="500.0">
+                        <children>
+                            <Label text="Random">
+                                <font>
+                                    <Font size="21.0" />
+                                </font>
+                            </Label>
+                            <CheckBox fx:id="randomCheckBox" onAction="#checkRandom" mnemonicParsing="false" prefHeight="14.0" prefWidth="14.0" selected="true">
+                                <HBox.margin>
+                                    <Insets left="10.0" top="6.0" />
+                                </HBox.margin>
+                                <font>
+                                    <Font size="13.0" />
+                                </font>
+                            </CheckBox>
+                        </children>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                    </HBox>
+                    <AnchorPane fx:id="randomSelectPane" prefHeight="53.0" prefWidth="500.0" style="-fx-background-color: Lightgrey;">
+                        <children>
+
+                        </children>
+                        <VBox.margin>
+                            <Insets top="10.0" />
+                        </VBox.margin>
+                    </AnchorPane>
+                </children>
+            </VBox>
+        </center>
+    </BorderPane>
+</AnchorPane>

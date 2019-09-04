@@ -6,10 +6,12 @@ import simulation.logic.DNAFragment;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AminoAcidsSingleDifferenceComparator extends LabeledComparator implements Serializable {
+public class AminoAcidsBooleanComparator extends LabeledCategoryComparator implements Serializable {
 
-    public AminoAcidsSingleDifferenceComparator(){
-        super("AMINOACIDS-SINGLEDIFF","Numero di sequenze con almeno un Amminoacido diverso");
+    private static final String[] categories= {"Non Missenso","Missenso"};
+
+    public AminoAcidsBooleanComparator(){
+        super("AMINOACIDS-SINGLEDIFF","Numero di sequenze con almeno un Amminoacido diverso",categories);
     }
 
     @Override

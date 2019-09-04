@@ -73,47 +73,14 @@
                                 </Label>
                             </top>
                             <center>
-                                <BorderPane maxHeight="185.0" maxWidth="532.0" prefHeight="183.0" prefWidth="532.0" BorderPane.alignment="CENTER">
-                                    <top>
-                                        <Label text="Probabilità" BorderPane.alignment="CENTER">
-                                            <font>
-                                                <Font size="24.0" />
-                                            </font>
-                                        </Label>
-                                    </top>
-                                    <center>
-                                        <AnchorPane fx:id="probabilitiesAP" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                        </AnchorPane>
-                                    </center>
-                                    <left>
-                                        <Polyline fx:id="leftArrow" fill="CHARTREUSE" onMouseReleased="#decreaseIndex" points="24.0, 119.0, 24.0, 142.0, 8.0, 130.0, 24.0, 119.0" strokeType="INSIDE" BorderPane.alignment="TOP_LEFT">
-                                            <BorderPane.margin>
-                                                <Insets right="10.0" top="50.0" />
-                                            </BorderPane.margin>
-                                        </Polyline>
-                                    </left>
-                                    <right>
-                                        <Polyline fx:id="rightArrow" fill="CHARTREUSE" onMouseReleased="#increaseIndex" points="24.0, 119.0, 24.0, 142.0, 8.0, 130.0, 24.0, 119.0" rotate="180.0" strokeType="INSIDE" BorderPane.alignment="TOP_LEFT">
-                                            <BorderPane.margin>
-                                                <Insets left="10.0" top="50.0" />
-                                            </BorderPane.margin>
-                                        </Polyline>
-                                    </right>
-                                    <bottom>
-                                        <HBox maxWidth="90.0" prefHeight="22.0" prefWidth="50.0" BorderPane.alignment="CENTER">
-                                            <children>
-                                                <Label text="Indice: " />
-                                                <Label fx:id="index" text="1" />
-                                            </children>
-                                            <BorderPane.margin>
-                                                <Insets />
-                                            </BorderPane.margin>
-                                        </HBox>
-                                    </bottom>
+                                <AnchorPane fx:id="probabilitiesBoxAP" maxHeight="-Infinity" maxWidth="-Infinity" BorderPane.alignment="CENTER">
+                                    <children>
+
+                                    </children>
                                     <BorderPane.margin>
                                         <Insets left="230.0" />
                                     </BorderPane.margin>
-                                </BorderPane>
+                                </AnchorPane>
                             </center>
                             <bottom>
                                 <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -166,71 +133,6 @@
                                     </bottom>
                                 </BorderPane>
                             </bottom>
-                            <right>
-                                <BorderPane maxHeight="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: Lightgrey;" BorderPane.alignment="CENTER">
-                                    <top>
-                                        <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: Lightgrey;" BorderPane.alignment="CENTER">
-                                            <children>
-                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../icons/settings.png" />
-                                                    </image>
-                                                </ImageView>
-                                                <Label text="Opzioni">
-                                                    <font>
-                                                        <Font size="15.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                            <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                            </padding>
-                                        </HBox>
-                                    </top>
-                                    <center>
-                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
-                                            <children>
-                                                <HBox maxHeight="20.0" maxWidth="180.0" prefHeight="100.0" prefWidth="150.0" spacing="5.0">
-                                                    <children>
-                                                        <Label text="Equiprobabilità operazioni" />
-                                                        <CheckBox fx:id="equalOp" mnemonicParsing="false" onAction="#checkEqualOp" />
-                                                    </children>
-                                                </HBox>
-                                                <HBox maxHeight="20.0" maxWidth="180.0" prefHeight="100.0" prefWidth="150.0" spacing="5.0">
-                                                    <children>
-                                                        <Label text="Equiprobabilità nucleotidi">
-                                                            <HBox.margin>
-                                                                <Insets right="4.0" />
-                                                            </HBox.margin>
-                                                        </Label>
-                                                        <CheckBox fx:id="equalNucleotides" mnemonicParsing="false" onAction="#checkEqualNucleotides">
-                                                            <HBox.margin>
-                                                                <Insets />
-                                                            </HBox.margin>
-                                                        </CheckBox>
-                                                    </children>
-                                                </HBox>
-                                                <HBox maxHeight="20.0" maxWidth="180.0" prefHeight="100.0" prefWidth="150.0" spacing="5.0">
-                                                    <children>
-                                                        <Label text="Equiprobabilità indici">
-                                                            <HBox.margin>
-                                                                <Insets right="28.0" />
-                                                            </HBox.margin>
-                                                        </Label>
-                                                        <CheckBox fx:id="equalIndex" mnemonicParsing="false" onAction="#checkEqualIndex" />
-                                                    </children>
-                                                </HBox>
-                                            </children>
-                                            <BorderPane.margin>
-                                                <Insets bottom="10.0" left="8.0" top="10.0" />
-                                            </BorderPane.margin>
-                                        </VBox>
-                                    </center>
-                                    <BorderPane.margin>
-                                        <Insets right="30.0" />
-                                    </BorderPane.margin>
-                                </BorderPane>
-                            </right>
                         </BorderPane>
                     </children>
                 </AnchorPane>

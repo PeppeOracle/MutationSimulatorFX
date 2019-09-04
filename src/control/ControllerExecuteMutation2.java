@@ -36,17 +36,17 @@ public class ControllerExecuteMutation2 extends ControllerMenu implements Initia
     ArrayList<LabeledComparator> comparators;
 
     NucleotidesDifferenceComparator nucleotidesDifferenceComparator;
-    NucleotidesSingleDifferenceComparator nucleotidesSingleDifferenceComparator;
+    NucleotidesBooleanComparator nucleotidesSingleDifferenceComparator;
     AminoAcidsDifferenceComparator aminoAcidsDifferenceComparator;
-    AminoAcidsSingleDifferenceComparator aminoAcidsSingleDifferenceComparator;
+    AminoAcidsBooleanComparator aminoAcidsSingleDifferenceComparator;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         comparators = new ArrayList<>();
         nucleotidesDifferenceComparator = new NucleotidesDifferenceComparator();
-        nucleotidesSingleDifferenceComparator = new NucleotidesSingleDifferenceComparator();
+        nucleotidesSingleDifferenceComparator = new NucleotidesBooleanComparator();
         aminoAcidsDifferenceComparator = new AminoAcidsDifferenceComparator();
-        aminoAcidsSingleDifferenceComparator = new AminoAcidsSingleDifferenceComparator();
+        aminoAcidsSingleDifferenceComparator = new AminoAcidsBooleanComparator();
     }
 
     public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {

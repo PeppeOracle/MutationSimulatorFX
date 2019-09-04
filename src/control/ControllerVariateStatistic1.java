@@ -23,6 +23,11 @@ import java.util.ResourceBundle;
 
 public class ControllerVariateStatistic1 extends ControllerMenu implements Initializable {
 
+    @FXML
+    AnchorPane probabilitiesBoxAP;
+
+    ControllerProbabilities controllerProbabilities;
+
     MutationSimulator mutationSimulator;
     Simulation simulation;
     int iterations;
@@ -33,7 +38,6 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
     @FXML
     TextField iterationsField,variationField;
 
-
     @FXML
     VBox radioBox;
     @FXML
@@ -42,26 +46,39 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        initializeProbabilitiesController();
     }
 
-    public void decreaseIndex(MouseEvent mouseEvent) {
 
-    }
-
-    public void increaseIndex(MouseEvent mouseEvent) {
-
+    private void initializeProbabilitiesController(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/ProbabilitiesBox.fxml"));
+            probabilitiesBoxAP.getChildren().clear();
+            probabilitiesBoxAP.getChildren().add((AnchorPane) loader.load());
+            controllerProbabilities = loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void nextPage(ActionEvent actionEvent) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/VariateStatistic2.fxml"));
         AnchorPane root = (AnchorPane) loader.load();
-        ControllerVariateStatistic1 controllerVariateStatistic1= loader.getController();
-        controllerVariateStatistic1.mainPane=mainPane;
+        ControllerVariateStatistic2 controllerVariateStatistic2= loader.getController();
+        controllerVariateStatistic2.mainPane=mainPane;
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
+
+        variation = Double.valueOf(controllerProbabilities.readProbabilitiesFromGrid()[0][0][0]);
+        iterations = Integer.valueOf(iterationsField.getText());
+
+        simulationsList = new VariableSimulation(iterations, variation, simulation, mutationSimulator).getSimulation();
+
+        controllerVariateStatistic2.setSimulationsList(simulationsList);
+
+        controllerVariateStatistic2.initializeLoadedStage();
 
         /*
         comparisonGrid= (GridPane)mainPane.getScene().lookup("#comparisonGrid");
@@ -71,66 +88,17 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
         inizializeGridInformations();
         */
 
-        variation = Double.valueOf(variationField.getText());
-        variation = variation/100;
-        iterations = Integer.valueOf(iterationsField.getText());
+
+
 
         System.out.println(variation+" "+iterations);
 
-        simulationsList = new VariableSimulation(iterations, variation, simulation, mutationSimulator).getSimulation();
 
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Differenze");
-
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Frequenza");
-
-        areaChart = new AreaChart<String,Number>(xAxis,yAxis);
-
-        areaChartAP = (AnchorPane)mainPane.getScene().lookup("#areaChartAP");
-        radioBox = (VBox)mainPane.getScene().lookup("#radioBox");
-
-        initializeRadio();
-        initializeChart();
-        initializeStatistics();
 
         saveSimulation();
     }
 
     private void saveSimulation() {
-
-    }
-
-    private void initializeStatistics() {
-
-    }
-
-    private void initializeChart() {
-
-        ArrayList<XYChart.Series<String, Number>> dataSeriesList = new ArrayList<>();
-
-        for(Simulation simulationItem: simulationsList){
-            XYChart.Series<String, Number> dataSeries = new XYChart.Series<>();
-            dataSeries.setName(simulationItem.getName());
-
-            System.out.println(simulationItem.getListOfSimulationResults().get(0).getHashMapOfLabeledComparator().get("AMINOACIDS-DIFF"));
-
-            ParameterIndex parameterIndex = new ParameterIndex(simulationItem.getComparatorsLabel().get(0), simulationItem.getListOfSimulationResults());
-
-            System.out.println(simulationItem.getListOfSimulationResults().get(0).getHashMapOfLabeledComparator().get("AMINOACIDS-DIFF"));
-
-            for(Point point : parameterIndex.getPointsFrequency()){
-                dataSeries.getData().add(new XYChart.Data<String, Number>(""+point.getX(),point.getY()));
-            }
-
-            areaChart.getData().add(dataSeries);
-        }
-
-        areaChartAP.getChildren().clear();
-        areaChartAP.getChildren().add(areaChart);
-    }
-
-    private void initializeRadio() {
 
     }
 
@@ -140,14 +108,5 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
 
     public void setSimulation(Simulation simulation) {
         this.simulation = simulation;
-    }
-
-    public void checkEqualOp(ActionEvent actionEvent) {
-    }
-
-    public void checkEqualNucleotides(ActionEvent actionEvent) {
-    }
-
-    public void checkEqualIndex(ActionEvent actionEvent) {
     }
 }

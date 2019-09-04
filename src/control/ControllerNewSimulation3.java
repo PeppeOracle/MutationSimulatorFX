@@ -1,5 +1,7 @@
 package control;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +30,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -53,31 +56,33 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
     BarChart<String,Number> barChart;
 
     NucleotidesDifferenceComparator nucleotidesDifferenceComparator;
-    NucleotidesSingleDifferenceComparator nucleotidesSingleDifferenceComparator;
+    NucleotidesBooleanComparator nucleotidesBooleanComparator;
     AminoAcidsDifferenceComparator aminoAcidsDifferenceComparator;
-    AminoAcidsSingleDifferenceComparator aminoAcidsSingleDifferenceComparator;
+    AminoAcidsBooleanComparator aminoAcidsBooleanComparator;
+    LengthMutationComparator lengthComparator;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         comparators = new ArrayList<>();
         nucleotidesDifferenceComparator = new NucleotidesDifferenceComparator();
-        nucleotidesSingleDifferenceComparator = new NucleotidesSingleDifferenceComparator();
+        nucleotidesBooleanComparator = new NucleotidesBooleanComparator();
         aminoAcidsDifferenceComparator = new AminoAcidsDifferenceComparator();
-        aminoAcidsSingleDifferenceComparator = new AminoAcidsSingleDifferenceComparator();
+        aminoAcidsBooleanComparator = new AminoAcidsBooleanComparator();
+        lengthComparator = new LengthMutationComparator();
     }
 
     public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            comparators.add(nucleotidesSingleDifferenceComparator);
+            comparators.add(nucleotidesBooleanComparator);
         } else{
-            comparators.remove(nucleotidesSingleDifferenceComparator);
+            comparators.remove(nucleotidesBooleanComparator);
         }}
 
     public void checkAMINOACIDSSINGLEDIFF(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            comparators.add(aminoAcidsSingleDifferenceComparator);
+            comparators.add(aminoAcidsBooleanComparator);
         } else{
-            comparators.remove(nucleotidesSingleDifferenceComparator);
+            comparators.remove(nucleotidesBooleanComparator);
         }}
 
     public void checkNUCLEOTIDESDIFF(ActionEvent actionEvent) {
@@ -94,15 +99,91 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
             comparators.remove(aminoAcidsDifferenceComparator);
         }}
 
+    public void checkLENGTHDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(lengthComparator);
+        } else{
+            comparators.remove(lengthComparator);
+        }}
+/*
+    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            pieOperationResults.add(nucleotidesBooleanComparator);
+        } else{
+            pieOperationResults.remove(nucleotidesBooleanComparator);
+        }}
+
+    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            pieOperationResults.add(nucleotidesBooleanComparator);
+        } else{
+            pieOperationResults.remove(nucleotidesBooleanComparator);
+        }}
+
+    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(nucleotidesBooleanComparator);
+        } else{
+            comparators.remove(nucleotidesBooleanComparator);
+        }}
+
+    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(nucleotidesBooleanComparator);
+        } else{
+            comparators.remove(nucleotidesBooleanComparator);
+        }}
+
+    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(nucleotidesBooleanComparator);
+        } else{
+            comparators.remove(nucleotidesBooleanComparator);
+        }}
+
+    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(nucleotidesBooleanComparator);
+        } else{
+            comparators.remove(nucleotidesBooleanComparator);
+        }}
+
+    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(nucleotidesBooleanComparator);
+        } else{
+            comparators.remove(nucleotidesBooleanComparator);
+        }}
+
+    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(nucleotidesBooleanComparator);
+        } else{
+            comparators.remove(nucleotidesBooleanComparator);
+        }}
+
+    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(nucleotidesBooleanComparator);
+        } else{
+            comparators.remove(nucleotidesBooleanComparator);
+        }}
+*/
     public void nextPage(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation4.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/SimulationResult.fxml"));
         AnchorPane root = (AnchorPane) loader.load();
-        ControllerNewSimulation3 controllerNewSimulation3= loader.getController();
-        controllerNewSimulation3.mainPane=mainPane;
-        controllerNewSimulation3.setMutator(mutator);
+        ControllerSimulationResult controllerSimulationResult= loader.getController();
+        controllerSimulationResult.mainPane=mainPane;
 
-        controllerNewSimulation3.setSimulation(simulation);
+        mutationSimulator = new MutationSimulator(mutator,iterations,comparators);
+        simResults = mutationSimulator.simulate();
+        saveSimulation();
 
+        controllerSimulationResult.setMutationSimulator(mutationSimulator);
+        controllerSimulationResult.setSimulation(simulation);
+        controllerSimulationResult.setSimulations(simulations);
+
+        controllerSimulationResult.initializeLoadedStage();
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
@@ -114,33 +195,6 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
         results=mutator.mutate();
         inizializeGridInformations();
         */
-
-        mutationSimulator = new MutationSimulator(mutator,iterations,comparators);
-
-        controllerNewSimulation3.setMutationSimulator(mutationSimulator);
-
-        simResults = mutationSimulator.simulate();
-
-        parameterIndex = new ParameterIndex(comparators.get(0).getLabel(), simResults);
-
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Differenze");
-
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Frequenza");
-
-        barChart = new BarChart<String,Number>(xAxis,yAxis);
-
-        barChartAP = (AnchorPane)mainPane.getScene().lookup("#barChartAP");
-        radioBox = (VBox)mainPane.getScene().lookup("#radioBox");
-
-        initializeRadio();
-        initializeChart();
-        initializeStatistics();
-
-        saveSimulation();
-
-        controllerNewSimulation3.setSimulation(simulation);
     }
 
     private void initializeRadio() {
@@ -184,16 +238,9 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
     }
 
     public void saveSimulation(){
-        simulation = new Simulation(name, description, simResults);
-
-        ArrayList<Simulation> simulations = null;
-        simulations=(ArrayList<Simulation>)SimulationStore.readAllItem("simulations");
-        if(simulations==null){
-            simulations=new ArrayList<Simulation>();
-        }
+        simulation = new Simulation(name, description, simResults,comparators);
         simulations.add(simulation);
         SimulationStore.writeAllItem("simulations",simulations);
-
     }
 
     public void chooseParameter(ActionEvent actionEvent){

@@ -42,8 +42,6 @@ public class ControllerExecuteMutation3 extends ControllerMenu implements Initia
             Label aminoAcidMutated = new Label(""+aminoAcidsMutated.get(i));
             Pane coloredPane = new Pane();
 
-
-
             String red = "Red";
             String green = "Green";
 

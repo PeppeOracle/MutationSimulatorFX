@@ -35,6 +35,7 @@ public class ControllerNewSimulation1 extends ControllerMenu implements Initiali
 
         controllerNewSimulation2.setName(textName.getText());
         controllerNewSimulation2.setDescription(textDescription.getText());
+        controllerNewSimulation2.setSimulations(simulations);
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());

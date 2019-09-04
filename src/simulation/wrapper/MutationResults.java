@@ -11,7 +11,7 @@ public class MutationResults implements Serializable {
     private int numberOfReplacements;
     private int numberOfRemovals;
     private int numberOfInvariances;
-    private DNAFragment dnaFragmentMutated;
+    transient private DNAFragment dnaFragmentMutated;
 
     public MutationResults() {
     }

@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ControllerGestioneSimulazioni extends ControllerMenu implements Initializable{
+public class ControllerManageSimulations extends ControllerMenu implements Initializable{
 
     @FXML
     Button more;
