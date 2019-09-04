@@ -27,12 +27,15 @@ public class ParameterIndex {
         this.listOfSimulationResults = listOfSimulationResults;
         dataSort = new DataSort(listOfSimulationResults.get(0).getSize() + 1);
 
+
         if(isFieldOfMutationResults(name)){
             loadDSMutation();
         }else if(listOfSimulationResults.get(0).getHashMapOfLabeledComparator().get(name) != null){
             loadDSComparator();
         }
+        loadDSComparator();
     }
+
 
     private void loadDSComparator() {
         for(SimulationResults simulationResults : listOfSimulationResults){

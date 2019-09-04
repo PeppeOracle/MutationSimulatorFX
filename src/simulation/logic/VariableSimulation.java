@@ -1,8 +1,6 @@
 package simulation.logic;
 
-import simulation.statistics.ParameterIndex;
 import simulation.wrapper.Simulation;
-import simulation.wrapper.SimulationResults;
 
 import java.util.ArrayList;
 
