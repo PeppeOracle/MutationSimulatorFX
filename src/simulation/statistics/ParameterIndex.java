@@ -1,7 +1,6 @@
 package simulation.statistics;
 
-import org.apache.commons.math3.stat.Frequency;
-import org.apache.commons.math3.stat.StatUtils;
+
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import simulation.wrapper.MutationResults;
 import simulation.wrapper.Simulation;
@@ -18,40 +17,41 @@ import java.util.*;
 public class ParameterIndex {
     private String name;
     private DescriptiveStatistics descriptiveStatistics;
-    private Frequency frequency;
-    private HashSet<Integer> set;
+    private DataSort dataSort;
 
     private ArrayList<SimulationResults> listOfSimulationResults;
 
     public ParameterIndex(String name, ArrayList<SimulationResults> listOfSimulationResults) {
-        this.set=new HashSet<Integer>();
         this.descriptiveStatistics=new DescriptiveStatistics();
         this.name = name;
         this.listOfSimulationResults = listOfSimulationResults;
-        frequency = new Frequency();
+        dataSort = new DataSort(listOfSimulationResults.get(0).getSize() + 1);
+
 
         if(isFieldOfMutationResults(name)){
             loadDSMutation();
         }else if(listOfSimulationResults.get(0).getHashMapOfLabeledComparator().get(name) != null){
             loadDSComparator();
         }
+        loadDSComparator();
     }
+
 
     private void loadDSComparator() {
         for(SimulationResults simulationResults : listOfSimulationResults){
             HashMap<String,Integer> map = simulationResults.getHashMapOfLabeledComparator();
-            descriptiveStatistics.addValue((double)map.get(name));
-            frequency.addValue((int)map.get(name));
-            set.add((int)map.get(name));
+            int value = map.get(name);
+            descriptiveStatistics.addValue((double)value);
+            dataSort.addValue(value);
         }
     }
 
     private void loadDSMutation(){
         for(SimulationResults simulationResults : listOfSimulationResults) {
             MutationResults mutationResults = simulationResults.getMutationResults();
-            descriptiveStatistics.addValue((double)invokeGetter(mutationResults,name));
-            frequency.addValue((int)invokeGetter(mutationResults,name));
-            set.add((int)invokeGetter(mutationResults,name));
+            int value = (int)invokeGetter(mutationResults,name);
+            descriptiveStatistics.addValue((double)value);
+            dataSort.addValue(value);
         }
     }
 
@@ -98,25 +98,14 @@ public class ParameterIndex {
     }
 
     public ArrayList<Point> getPointsFrequency(){
-        ArrayList<Point> points = new ArrayList<>();
+        return dataSort.getArrayListPoint();
+    }
 
-        for(Integer x : set){
-            points.add(new Point(x, (int) frequency.getCount(x)));
-        }
-
-        points.sort(new Comparator<Point>() {
-            @Override
-            public int compare(Point o1, Point o2) {
-                    int x1 = (int) o1.getX();
-                    int x2 = (int) o2.getX();
-
-                    if (x1 <= x2)
-                        return -1;
-                    else
-                        return 1;
-
-            }
-        });
-        return points;
+    public void count(){
+        getPointsFrequency();
+        getMean();
+        getMedian();
+        getStandardDeviation();
+        getVariance();
     }
 }

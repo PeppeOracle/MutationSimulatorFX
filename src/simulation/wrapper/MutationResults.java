@@ -72,6 +72,10 @@ public class MutationResults implements Serializable {
         numberOfInvariances++;
     }
 
+    public int getSize(){
+        return numberOfEntries + numberOfInvariances + numberOfRemovals + numberOfReplacements;
+    }
+
     @Override
     public String toString() {
         return getClass().getName() +

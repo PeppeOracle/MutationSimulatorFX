@@ -8,6 +8,7 @@ import simulation.wrapper.MutationResults;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Mutator {
     /*

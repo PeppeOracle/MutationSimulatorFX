@@ -1,5 +1,7 @@
 package simulation.wrapper;
 
+import simulation.logic.DNAFragment;
+
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
@@ -31,4 +33,33 @@ public class SimulationResults implements Serializable {
                 ", hashMapOfLabeledComparator=" + hashMapOfLabeledComparator +
                 '}';
     }
+
+
+    public int getNumberOfEntries() {
+        return mutationResults.getNumberOfEntries();
+    }
+
+
+    public int getNumberOfReplacements() {
+        return mutationResults.getNumberOfReplacements();
+    }
+
+
+    public int getNumberOfRemovals() {
+        return mutationResults.getNumberOfRemovals();
+    }
+
+
+    public int getNumberOfInvariances() {
+        return mutationResults.getNumberOfInvariances();
+    }
+
+    public DNAFragment getDnaFragmentMutated() {
+        return mutationResults.getDnaFragmentMutated();
+    }
+
+    public int getSize(){
+        return mutationResults.getSize();
+    }
+
 }
