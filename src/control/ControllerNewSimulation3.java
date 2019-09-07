@@ -29,10 +29,8 @@ import simulation.wrapper.SimulationResults;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class ControllerNewSimulation3 extends ControllerMenu implements Initializable {
 
@@ -52,7 +50,7 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
     @FXML
     VBox radioBox;
     @FXML
-    AnchorPane barChartAP;
+    AnchorPane barChartAP,radioAP;
     BarChart<String,Number> barChart;
 
     NucleotidesDifferenceComparator nucleotidesDifferenceComparator;
@@ -60,6 +58,9 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
     AminoAcidsDifferenceComparator aminoAcidsDifferenceComparator;
     AminoAcidsBooleanComparator aminoAcidsBooleanComparator;
     LengthMutationComparator lengthComparator;
+
+    ArrayList<String> pieOperationResults;
+    ArrayList<String> barOperationResults;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -69,6 +70,33 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
         aminoAcidsDifferenceComparator = new AminoAcidsDifferenceComparator();
         aminoAcidsBooleanComparator = new AminoAcidsBooleanComparator();
         lengthComparator = new LengthMutationComparator();
+        pieOperationResults = new ArrayList();
+        barOperationResults = new ArrayList();
+    }
+
+    @Override
+    public void setResources(HashMap<String, Object> resources) {
+        super.setResources(resources);
+
+        if(resources.containsKey("name")){
+            name = (String)resources.get("name");
+        }
+        if(resources.containsKey("description")){
+            description = (String)resources.get("description");
+        }
+        if(resources.containsKey("iterations")){
+            iterations = (int)resources.get("iterations");
+        }
+        if(resources.containsKey("mutator")){
+            mutator = (Mutator)resources.get("mutator");
+        }
+        if(resources.containsKey("comparatorsRadio")){
+            radioBox.getChildren().clear();
+            radioBox.getChildren().add((VBox)resources.get("comparatorsRadio"));
+        }
+        if(resources.containsKey("comparators")){
+            comparators = (ArrayList<LabeledComparator>)resources.get("comparators");
+        }
     }
 
     public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
@@ -105,85 +133,104 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
         } else{
             comparators.remove(lengthComparator);
         }}
-/*
-    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+
+    public void checkInserimentoPie(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            pieOperationResults.add(nucleotidesBooleanComparator);
+            pieOperationResults.add("numberOfEntries");
         } else{
-            pieOperationResults.remove(nucleotidesBooleanComparator);
+            pieOperationResults.remove("numberOfEntries");
         }}
 
-    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+    public void checkRimozionePie(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            pieOperationResults.add(nucleotidesBooleanComparator);
+            pieOperationResults.add("numberOfRemovals");
         } else{
-            pieOperationResults.remove(nucleotidesBooleanComparator);
+            pieOperationResults.remove("numberOfRemovals");
         }}
 
-    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+    public void checkInvarianzaPie(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            comparators.add(nucleotidesBooleanComparator);
+            pieOperationResults.add("numberOfInvariances");
         } else{
-            comparators.remove(nucleotidesBooleanComparator);
+            pieOperationResults.remove("numberOfInvariances");
         }}
 
-    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+    public void checkSostituzionePie(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            comparators.add(nucleotidesBooleanComparator);
+            pieOperationResults.add("numberOfReplacements");
         } else{
-            comparators.remove(nucleotidesBooleanComparator);
+            pieOperationResults.remove("numberOfReplacements");
         }}
 
-    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+    public void checkInserimentoBar(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            comparators.add(nucleotidesBooleanComparator);
+            barOperationResults.add("numberOfEntries");
         } else{
-            comparators.remove(nucleotidesBooleanComparator);
+            barOperationResults.remove("numberOfEntries");
         }}
 
-    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+    public void checkRimozioneBar(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            comparators.add(nucleotidesBooleanComparator);
+            barOperationResults.add("numberOfRemovals");
         } else{
-            comparators.remove(nucleotidesBooleanComparator);
+            barOperationResults.remove("numberOfRemovals");
         }}
 
-    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+    public void checkSostituzioneBar(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            comparators.add(nucleotidesBooleanComparator);
+            barOperationResults.add("numberOfReplacements");
         } else{
-            comparators.remove(nucleotidesBooleanComparator);
+            barOperationResults.remove("numberOfReplacements");
         }}
 
-    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
+    public void checkInvarianzaBar(ActionEvent actionEvent) {
         if(((CheckBox)actionEvent.getSource()).isSelected()){
-            comparators.add(nucleotidesBooleanComparator);
+            barOperationResults.add("numberOfInvariances");
         } else{
-            comparators.remove(nucleotidesBooleanComparator);
+            barOperationResults.remove("numberOfInvariances");
         }}
 
-    public void checkNUCLEOTIDESSINGLEDIFF(ActionEvent actionEvent) {
-        if(((CheckBox)actionEvent.getSource()).isSelected()){
-            comparators.add(nucleotidesBooleanComparator);
-        } else{
-            comparators.remove(nucleotidesBooleanComparator);
-        }}
-*/
     public void nextPage(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/SimulationResult.fxml"));
         AnchorPane root = (AnchorPane) loader.load();
         ControllerSimulationResult controllerSimulationResult= loader.getController();
         controllerSimulationResult.mainPane=mainPane;
 
+        resources.put("comparators",comparators);
+        resources.put("comparatorsRadio",radioBox);
+
         mutationSimulator = new MutationSimulator(mutator,iterations,comparators);
         simResults = mutationSimulator.simulate();
-        saveSimulation();
 
         controllerSimulationResult.setMutationSimulator(mutationSimulator);
+        simulation=new Simulation(name,description,simResults,comparators);
         controllerSimulationResult.setSimulation(simulation);
-        controllerSimulationResult.setSimulations(simulations);
 
         controllerSimulationResult.initializeLoadedStage();
+        controllerSimulationResult.setResources(resources);
+
+        mainPane.getChildren().clear();
+        mainPane.getChildren().setAll(root.getChildren());
+
+        /*
+        comparisonGrid= (GridPane)mainPane.getScene().lookup("#comparisonGrid");
+        informationsGrid= (VBox)mainPane.getScene().lookup("#informationsGrid");
+
+        results=mutator.mutate();
+        inizializeGridInformations();
+        */
+    }
+
+    public void previousPage(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation2.fxml"));
+        AnchorPane root = (AnchorPane) loader.load();
+        ControllerNewSimulation2 controllerNewSimulation2= loader.getController();
+        controllerNewSimulation2.mainPane=mainPane;
+
+        resources.put("comparators",comparators);
+        resources.put("comparatorsRadio",radioBox);
+
+        controllerNewSimulation2.setResources(resources);
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
@@ -235,12 +282,6 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
 
         barChartAP.getChildren().clear();
         barChartAP.getChildren().add(barChart);
-    }
-
-    public void saveSimulation(){
-        simulation = new Simulation(name, description, simResults,comparators);
-        simulations.add(simulation);
-        SimulationStore.writeAllItem("simulations",simulations);
     }
 
     public void chooseParameter(ActionEvent actionEvent){

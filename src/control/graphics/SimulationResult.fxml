@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -79,7 +78,7 @@
                                     <Font size="21.0" />
                                  </font>
                               </Label>
-                              <HBox  fx:id="radioBox" prefHeight="22.0" prefWidth="880.0">
+                              <HBox fx:id="radioBox" prefHeight="22.0" prefWidth="880.0">
                                  <children>
                                  </children>
                               </HBox>
@@ -127,14 +126,22 @@
                         </BorderPane>
                      </right>
                      <bottom>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
+                              <Button layoutX="770.0" layoutY="45.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="31.0" prefWidth="169.0" text="Modifica simulazione">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="550.0" />
+                                 </HBox.margin>
+                              </Button>
                               <Button mnemonicParsing="false" onAction="#variateStatistic" prefWidth="150" text="Statistiche variabili">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="930.0" layoutY="45.0" mnemonicParsing="false" onAction="#recentSimulations" prefWidth="150" text="Torna alla home">
+                              <Button layoutX="930.0" layoutY="45.0" mnemonicParsing="false" onAction="#saveSimulation" prefWidth="150" text="Salva">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -143,6 +150,9 @@
                            <padding>
                               <Insets right="10.0" />
                            </padding>
+                           <BorderPane.margin>
+                              <Insets bottom="15.0" left="20.0" right="20.0" />
+                           </BorderPane.margin>
                         </HBox>
                      </bottom>
                   </BorderPane>

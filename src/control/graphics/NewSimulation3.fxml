@@ -83,7 +83,7 @@
                         </BorderPane>
                      </bottom>
                      <center>
-                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" fx:id="radioBox">
                            <BorderPane.margin>
                               <Insets left="100.0" right="100.0" top="100.0" />
                            </BorderPane.margin>
@@ -95,6 +95,180 @@
                                  <VBox.margin>
                                     <Insets bottom="15.0" />
                                  </VBox.margin>
+                              </Label>
+                              <Label text="Relativi a operazioni">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="134.0" prefWidth="880.0" style="-fx-background-color: Lightgrey;">
+                                       <children>
+                                          <Label text="Piechart">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <HBox prefHeight="0.0" prefWidth="500.0">
+                                             <children>
+                                                <Label text="Inserimento">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                <CheckBox mnemonicParsing="false" onAction="#checkInserimentoPie" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="6.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="0.0" prefWidth="500.0">
+                                             <children>
+                                                <Label text="Rimozione">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                <CheckBox mnemonicParsing="false" onAction="#checkRimozionePie" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="6.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="0.0" prefWidth="500.0">
+                                             <children>
+                                                <Label text="Sostituzione">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                <CheckBox mnemonicParsing="false" onAction="#checkSostituzionePie" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="6.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="0.0" prefWidth="500.0">
+                                             <children>
+                                                <Label text="Invarianza">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                <CheckBox mnemonicParsing="false" onAction="#checkInvarianzaPie" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="6.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox prefHeight="134.0" prefWidth="880.0" style="-fx-background-color: Lightgrey;">
+                                       <children>
+                                          <Label text="Barchart">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <HBox prefHeight="0.0" prefWidth="500.0">
+                                             <children>
+                                                <Label text="Inserimento">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                <CheckBox mnemonicParsing="false" onAction="#checkInserimentoBar" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="6.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="0.0" prefWidth="500.0">
+                                             <children>
+                                                <Label text="Rimozione">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                <CheckBox mnemonicParsing="false" onAction="#checkRimozioneBar" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="6.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="0.0" prefWidth="500.0">
+                                             <children>
+                                                <Label text="Sostituzione">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                <CheckBox mnemonicParsing="false" onAction="#checkSostituzioneBar" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="6.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="0.0" prefWidth="500.0">
+                                             <children>
+                                                <Label text="Invarianza">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Label>
+                                                <CheckBox mnemonicParsing="false" onAction="#checkInvarianzaBar" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="6.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="13.0" />
+                                                   </font>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label text="Relativi a mutazioni">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
                               </Label>
                               <VBox prefHeight="134.0" prefWidth="880.0" style="-fx-background-color: Lightgrey;">
                                  <children>
@@ -192,14 +366,26 @@
                         </VBox>
                      </center>
                      <bottom>
-                     <Button onAction="#nextPage" prefWidth="100" mnemonicParsing="false" text="Next" BorderPane.alignment="CENTER_RIGHT">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <BorderPane.margin>
-                        <Insets bottom="5.0" right="10.0" />
-                     </BorderPane.margin>
-                  </Button>
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="1080.0" spacing="840.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#previousPage" prefWidth="100" text="Indietro">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#nextPage" prefWidth="100" text="Avanti">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="20.0" />
+                           </padding>
+                        </HBox>
                      </bottom>
                   </BorderPane>
                </children>

@@ -135,7 +135,7 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
     public void saveSimulation() {
         simulation = new Simulation(name, description, simResults,comparators);
         simulations.add(simulation);
-
+        SimulationStore.writeAllItem("simulations",simulations);
     }
 
     public void chooseParameter(ActionEvent actionEvent){
@@ -180,6 +180,20 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         controllerVariateStatistic1.mainPane = mainPane;
         controllerVariateStatistic1.setMutationSimulator(mutationSimulator);
         controllerVariateStatistic1.setSimulation(simulation);
+
+        mainPane.getChildren().clear();
+        mainPane.getChildren().setAll(root.getChildren());
+    }
+
+    public void previousPage(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation3.fxml"));
+
+        AnchorPane root = (AnchorPane) loader.load();
+        ControllerNewSimulation3 controllerNewSimulation3= loader.getController();
+        controllerNewSimulation3.mainPane = mainPane;
+
+        controllerNewSimulation3.setResources(resources);
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());

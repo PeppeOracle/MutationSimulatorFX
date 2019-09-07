@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ControllerNewSimulation1 extends ControllerMenu implements Initializable {
@@ -22,6 +23,20 @@ public class ControllerNewSimulation1 extends ControllerMenu implements Initiali
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        textName.setFont(Font.font(20));
+        textDescription.setFont(Font.font(20));
+    }
+
+    @Override
+    public void setResources(HashMap<String, Object> resources) {
+        super.setResources(resources);
+
+        if(resources.containsKey("name")){
+            this.textName.setText((String)resources.get("name"));
+        }
+        if(resources.containsKey("description")){
+            this.textDescription.setText((String)resources.get("description"));
+        }
     }
 
     public void nextPage(ActionEvent actionEvent) throws IOException {
@@ -30,12 +45,10 @@ public class ControllerNewSimulation1 extends ControllerMenu implements Initiali
         ControllerNewSimulation2 controllerNewSimulation2 = loader.getController();
         controllerNewSimulation2.mainPane=mainPane;
 
-        textName.setFont(Font.font(20));
-        textDescription.setFont(Font.font(20));
+        resources.put("name",textName.getText());
+        resources.put("description",textDescription.getText());
 
-        controllerNewSimulation2.setName(textName.getText());
-        controllerNewSimulation2.setDescription(textDescription.getText());
-        controllerNewSimulation2.setSimulations(simulations);
+        controllerNewSimulation2.setResources(resources);
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());

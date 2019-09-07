@@ -24,6 +24,7 @@ import simulation.utils.StringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ControllerNewSimulation2 extends ControllerMenu implements Initializable{
@@ -46,15 +47,42 @@ public class ControllerNewSimulation2 extends ControllerMenu implements Initiali
 
     String name,description;
 
+    Mutator mutator;
+
     DNAFragment fragmentToMutate;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initializeProbabilitiesController();
         initializeRandomController();
+        initializeProbabilitiesController();
     }
 
-    private void initializeProbabilitiesController(){
+    @Override
+    public void setResources(HashMap<String, Object> resources) {
+        super.setResources(resources);
+
+        if(resources.containsKey("operationsProbabilities")){
+            ControllerProbabilities probabilitiesController = (ControllerProbabilities)resources.get("operationsProbabilities");
+            controllerProbabilities.setProbabilitiesBoxAP(probabilitiesController.getProbabilitiesBoxAP());
+            controllerProbabilities.setProbabilitiesGridPanes(probabilitiesController.getProbabilitiesGridPanes());
+            controllerProbabilities.setEqualIndex(probabilitiesController.getEqualIndex());
+            controllerProbabilities.setEqualNucleotides(probabilitiesController.getEqualNucleotides());
+            controllerProbabilities.setEqualOp(probabilitiesController.getEqualOp());
+        }
+        if(resources.containsKey("random")){
+            ControllerRandom randomController = (ControllerRandom) resources.get("random");
+            controllerRandom.setRandomAP(randomController.getRandomAP());
+            controllerRandom.setInserisciSequenzaBox(randomController.getInserisciSequenzaBox());
+            controllerRandom.setLunghezzaSequenzaBox(randomController.getLunghezzaSequenzaBox());
+            controllerRandom.setSequenceLenght(randomController.getSequenceLenght());
+            controllerRandom.setInsertSequence(randomController.getInsertSequence());
+        }
+        if(resources.containsKey("iterations")){
+            numIterations.setText(""+ resources.get("iterations"));
+        }
+    }
+
+    public ControllerProbabilities initializeProbabilitiesController(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/ProbabilitiesBox.fxml"));
             probabilitiesBoxAP.getChildren().clear();
@@ -63,9 +91,10 @@ public class ControllerNewSimulation2 extends ControllerMenu implements Initiali
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return controllerProbabilities;
     }
 
-    private void initializeRandomController(){
+    private ControllerRandom initializeRandomController(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/RandomBox.fxml"));
             randomSelectBoxAP.getChildren().clear();
@@ -74,33 +103,51 @@ public class ControllerNewSimulation2 extends ControllerMenu implements Initiali
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return controllerRandom;
     }
 
     public void nextPage(ActionEvent actionEvent) throws IOException {
-
         fragmentToMutate = controllerRandom.getDNAFragmentFromInput();
-        Mutator mutator = new Mutator(fragmentToMutate, controllerProbabilities.readProbabilitiesFromGrid());
+        mutator = new Mutator(fragmentToMutate, controllerProbabilities.readProbabilitiesFromGrid());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation3.fxml"));
         AnchorPane root = (AnchorPane) loader.load();
         ControllerNewSimulation3 controllerNewSimulation3= loader.getController();
         controllerNewSimulation3.mainPane=mainPane;
-        controllerNewSimulation3.setMutator(mutator);
-        controllerNewSimulation3.setIterations(Integer.valueOf(numIterations.getText()));
-        controllerNewSimulation3.setName(name);
-        controllerNewSimulation3.setDescription(description);
-        controllerNewSimulation3.setSimulations(simulations);
+
+        resources.put("operationsProbabilities",controllerProbabilities);
+        resources.put("random",controllerRandom);
+        resources.put("mutator",mutator);
+        resources.put("iterations",Integer.valueOf(numIterations.getText()));
+
+        controllerNewSimulation3.setResources(resources);
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
     }
 
-    public void setName(String name){
-        this.name=name;
+    public void previousPage(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation1.fxml"));
+        AnchorPane root = (AnchorPane) loader.load();
+        ControllerNewSimulation1 controllerNewSimulation1= loader.getController();
+        controllerNewSimulation1.mainPane=mainPane;
+
+        resources.put("operationsProbabilities",controllerProbabilities);
+        resources.put("random",controllerRandom);
+        resources.put("iterations",numIterations.getText());
+
+        controllerNewSimulation1.setResources(resources);
+
+        mainPane.getChildren().clear();
+        mainPane.getChildren().setAll(root.getChildren());
     }
 
-    public void setDescription(String description){
-        this.description=description;
+    public void setNumIterations(TextField numIterations) {
+        this.numIterations = numIterations;
+    }
+
+    public void setFragmentToMutate(DNAFragment fragmentToMutate) {
+        this.fragmentToMutate = fragmentToMutate;
     }
 }
 

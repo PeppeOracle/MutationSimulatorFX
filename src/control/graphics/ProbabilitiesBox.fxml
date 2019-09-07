@@ -14,7 +14,8 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" BorderPane.alignment="CENTER"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="control.ControllerProbabilities">
+            fx:controller="control.ControllerProbabilities"
+            fx:id="probabilitiesBoxAP">
         <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                 <children>

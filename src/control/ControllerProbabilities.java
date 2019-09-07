@@ -32,7 +32,7 @@ public class ControllerProbabilities implements Initializable {
     CheckBox equalIndex,equalNucleotides,equalOp;
 
     @FXML
-    AnchorPane probabilitiesAP;
+    AnchorPane probabilitiesAP,probabilitiesBoxAP;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -146,4 +146,44 @@ public class ControllerProbabilities implements Initializable {
         probabilitiesAP.getChildren().add(probabilitiesGridPanes[indexCount]);
     }
 
+    public AnchorPane getProbabilitiesBoxAP(){
+        return probabilitiesBoxAP;
+    }
+
+    public void setProbabilitiesBoxAP(AnchorPane probabilities){
+        probabilitiesBoxAP.getChildren().clear();
+        probabilitiesBoxAP.getChildren().add(probabilities);
+    }
+
+    public GridPane[] getProbabilitiesGridPanes() {
+        return probabilitiesGridPanes;
+    }
+
+    public void setProbabilitiesGridPanes(GridPane[] probabilitiesGridPanes) {
+        this.probabilitiesGridPanes = probabilitiesGridPanes;
+    }
+
+    public CheckBox getEqualIndex() {
+        return equalIndex;
+    }
+
+    public CheckBox getEqualNucleotides() {
+        return equalNucleotides;
+    }
+
+    public CheckBox getEqualOp() {
+        return equalOp;
+    }
+
+    public void setEqualIndex(CheckBox equalIndex) {
+        this.equalIndex = equalIndex;
+    }
+
+    public void setEqualNucleotides(CheckBox equalNucleotides) {
+        this.equalNucleotides = equalNucleotides;
+    }
+
+    public void setEqualOp(CheckBox equalOp) {
+        this.equalOp = equalOp;
+    }
 }

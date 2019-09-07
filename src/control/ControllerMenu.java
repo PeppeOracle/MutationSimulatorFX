@@ -8,11 +8,14 @@ import simulation.wrapper.Simulation;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public abstract class ControllerMenu {
 
     protected AnchorPane mainPane;
-    ArrayList<Simulation> simulations;
+    protected static HashMap<String,Object> resources;
+    protected static ArrayList<Simulation> simulations;
 
     public void newSimulation(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation1.fxml"));
@@ -20,7 +23,8 @@ public abstract class ControllerMenu {
         AnchorPane root = (AnchorPane) loader.load();
         ControllerNewSimulation1 controllerNewSimulation1 = loader.getController();
         controllerNewSimulation1.mainPane = mainPane;
-        controllerNewSimulation1.setSimulations(simulations);
+
+        resources = new HashMap<String, Object>();
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
@@ -51,7 +55,8 @@ public abstract class ControllerMenu {
         AnchorPane root = (AnchorPane) loader.load();
         ControllerManageSimulations controllerManageSimulations = loader.getController();
         controllerManageSimulations.mainPane = mainPane;
-        controllerManageSimulations.setSimulations(simulations);
+
+        resources = new HashMap<String, Object>();
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
@@ -59,5 +64,9 @@ public abstract class ControllerMenu {
 
     public void setSimulations(ArrayList<Simulation> simulations) {
         this.simulations = simulations;
+    }
+
+    public void setResources(HashMap<String, Object> resources) {
+        this.resources = resources;
     }
 }

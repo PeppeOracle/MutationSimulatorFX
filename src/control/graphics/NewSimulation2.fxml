@@ -9,13 +9,10 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="newSimulation2AP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ControllerNewSimulation2">
@@ -137,14 +134,26 @@
                               </VBox>
                            </center>
                            <bottom>
-                              <Button mnemonicParsing="false" onAction="#nextPage" prefWidth="100" text="Next" BorderPane.alignment="BOTTOM_RIGHT">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
+                              <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="1080.0" spacing="840.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#previousPage" prefWidth="100" text="Indietro">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#nextPage" prefWidth="100" text="Avanti">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
                                  <BorderPane.margin>
-                                    <Insets bottom="5.0" right="10.0" />
+                                    <Insets />
                                  </BorderPane.margin>
-                              </Button>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="20.0" />
+                                 </padding>
+                              </HBox>
                            </bottom>
                         </BorderPane>
                      </bottom>

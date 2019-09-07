@@ -11,7 +11,8 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="control.ControllerRandom"
-            prefHeight="-Infinity" prefWidth="-Infinity">
+            prefHeight="-Infinity" prefWidth="-Infinity"
+            fx:id="randomAP">
     <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <center>
             <VBox maxWidth="500.0" minHeight="350.0" prefHeight="264.0" prefWidth="500.0" BorderPane.alignment="CENTER">
