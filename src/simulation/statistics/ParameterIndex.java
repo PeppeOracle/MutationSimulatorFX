@@ -12,21 +12,19 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.List;
 
 
-public class ParameterIndex {
+public class ParameterIndex extends DescriptiveStatistics {
     private String name;
-    private DescriptiveStatistics descriptiveStatistics;
     private DataSort dataSort;
 
     private ArrayList<SimulationResults> listOfSimulationResults;
 
     public ParameterIndex(String name, ArrayList<SimulationResults> listOfSimulationResults) {
-        this.descriptiveStatistics=new DescriptiveStatistics();
         this.name = name;
         this.listOfSimulationResults = listOfSimulationResults;
         dataSort = new DataSort(listOfSimulationResults.get(0).getSize() + 1);
-
 
         if(isFieldOfMutationResults(name)){
             loadDSMutation();
@@ -41,7 +39,7 @@ public class ParameterIndex {
         for(SimulationResults simulationResults : listOfSimulationResults){
             HashMap<String,Integer> map = simulationResults.getHashMapOfLabeledComparator();
             int value = map.get(name);
-            descriptiveStatistics.addValue((double)value);
+            addValue((double)value);
             dataSort.addValue(value);
         }
     }
@@ -50,7 +48,7 @@ public class ParameterIndex {
         for(SimulationResults simulationResults : listOfSimulationResults) {
             MutationResults mutationResults = simulationResults.getMutationResults();
             int value = (int)invokeGetter(mutationResults,name);
-            descriptiveStatistics.addValue((double)value);
+            addValue((double)value);
             dataSort.addValue(value);
         }
     }
@@ -81,31 +79,34 @@ public class ParameterIndex {
         return name;
     }
 
-    public double getMean() {
-        return descriptiveStatistics.getMean();
-    }
-
     public double getMedian() {
-        return descriptiveStatistics.getPercentile(50);
+        return getPercentile(50);
     }
 
-    public double getVariance() {
-        return descriptiveStatistics.getVariance();
+    public List getModa(){
+        return null;
     }
 
-    public double getStandardDeviation() {
-        return descriptiveStatistics.getStandardDeviation();
+    public double getAmpiezzaIntervalloVariazione(){
+        return getMax() - getMin();
+    }
+
+    public double getScartoMedioAssoluto(){
+        int[] xf = dataSort.getArrayOfNumber();
+
+        double mean = getMean();
+        double tmp = 0;
+        for(int i = 0; i < getMax(); i++){
+            tmp = tmp + xf[i]*(i - mean);
+        }
+        return tmp/getN();
+    }
+
+    public double getCoefficienteDiVariazione(){
+        return getStandardDeviation()/getMean();
     }
 
     public ArrayList<Point> getPointsFrequency(){
         return dataSort.getArrayListPoint();
-    }
-
-    public void count(){
-        getPointsFrequency();
-        getMean();
-        getMedian();
-        getStandardDeviation();
-        getVariance();
     }
 }

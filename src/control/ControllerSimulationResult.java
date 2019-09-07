@@ -90,12 +90,27 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         Double numero = 123.1258965;
         numero = Integer.parseInt(formatter.format(numero));*/
 
+        Label positionIndex = new Label("Indici di posizione:");
+        positionIndex.setStyle("-fx-font-weight: bold");
         Label mean = new Label("Media: " + (float)parameterIndex.getMean());
         Label median = new Label("Mediana: " + (float)parameterIndex.getMedian());
-        Label standardDeviation = new Label("Deviazione Standard: " + (float)parameterIndex.getStandardDeviation());
+        Label moda = new Label("Moda: " + "DA FAREQ");
+
+        Label variabilityIndex = new Label("Indici di variabilità:");
+        variabilityIndex.setStyle("-fx-font-weight: bold");
         Label variance = new Label("Varianza: " + (float)parameterIndex.getVariance());
+        Label standardDeviation = new Label("Deviazione Standard: " + (float)parameterIndex.getStandardDeviation());
+        Label absoluteAverageDifference = new Label("Scarto medio assoluto: " + (float)parameterIndex.getScartoMedioAssoluto());
+        Label rangeVariation = new Label("Ampiezza del campo di variazione: " + (float)parameterIndex.getAmpiezzaIntervalloVariazione());
+        Label coefficientVariation = new Label("Coefficiente di variazione: " + (float)parameterIndex.getCoefficienteDiVariazione());
+
+        Label shapeIndex = new Label("Indici di forma:");
+        shapeIndex.setStyle("-fx-font-weight: bold");
+        Label skewness = new Label("Indice di asimmetria: " + (float)parameterIndex.getSkewness());
+        Label kurtosis = new Label("Indice di curtosi: " + (float)parameterIndex.getKurtosis());
+
         statisticsBox.getChildren().clear();
-        statisticsBox.getChildren().addAll(mean,median,standardDeviation,variance);
+        statisticsBox.getChildren().addAll(positionIndex,mean,median,moda,variabilityIndex,variance,standardDeviation,absoluteAverageDifference,rangeVariation,coefficientVariation,shapeIndex,skewness,kurtosis);
     }
 
     private void initializeChart(){

@@ -20,13 +20,17 @@ public class DataSort {
     }
 
 
-    public int[] getArrayOfNumber(){
+    public int[] getArrayOfNumber() {
         int[] numbers = new int[range];
 
-        for(int i = 0; i < range; i++){
+        for (int i = 0; i < range; i++) {
             numbers[i] = (int) frequency.getCount(i);
         }
         return numbers;
+    }
+
+    public int getRange(){
+        return range;
     }
 
     public ArrayList<Point> getArrayListPoint(){
