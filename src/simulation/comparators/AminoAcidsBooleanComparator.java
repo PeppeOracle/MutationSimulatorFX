@@ -6,7 +6,7 @@ import simulation.logic.DNAFragment;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AminoAcidsBooleanComparator extends LabeledCategoryComparator implements Serializable {
+public class AminoAcidsBooleanComparator extends LabeledCategoryComparator{
 
     private static final String[] categories= {"Non Missenso","Missenso"};
 

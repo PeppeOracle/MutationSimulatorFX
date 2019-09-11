@@ -57,6 +57,7 @@ public abstract class ControllerMenu {
         controllerManageSimulations.mainPane = mainPane;
 
         resources = new HashMap<String, Object>();
+        controllerManageSimulations.setSimulations(simulations);
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());

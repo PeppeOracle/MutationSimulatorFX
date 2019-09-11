@@ -2,9 +2,10 @@ package simulation.comparators;
 
 import simulation.logic.DNAFragment;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public abstract class LabeledComparator implements Comparator<DNAFragment> {
+public abstract class LabeledComparator implements Comparator<DNAFragment>, Serializable {
     private String label;
     private String description;
 

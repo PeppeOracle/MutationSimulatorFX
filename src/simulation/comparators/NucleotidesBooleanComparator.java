@@ -5,7 +5,7 @@ import simulation.logic.DNAFragment;
 
 import java.io.Serializable;
 
-public class NucleotidesBooleanComparator extends LabeledCategoryComparator implements Serializable {
+public class NucleotidesBooleanComparator extends LabeledCategoryComparator{
 
     private static final String[] categories= {"Non Silente","Silente"};
 
