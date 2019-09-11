@@ -46,6 +46,7 @@ public class ControllerNewSimulation1 extends ControllerMenu implements Initiali
         controllerNewSimulation2.mainPane=mainPane;
 
         resources.put("name",textName.getText());
+        System.out.println("name1 = " + (String)resources.get("name"));
         resources.put("description",textDescription.getText());
 
         controllerNewSimulation2.setResources(resources);

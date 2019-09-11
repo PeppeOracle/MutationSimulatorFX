@@ -4,7 +4,7 @@ import simulation.logic.DNAFragment;
 
 import java.io.Serializable;
 
-public class NucleotidesDifferenceComparator extends LabeledComparator implements Serializable {
+public class NucleotidesDifferenceComparator extends LabeledComparator{
 
     public NucleotidesDifferenceComparator(){
         super("NUCLEOTIDES-DIFF", "Numero di Nucleotidi diversi");

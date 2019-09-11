@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -21,16 +22,12 @@ import simulation.wrapper.Simulation;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ControllerManageSimulations extends ControllerMenu implements Initializable{
-
-    @FXML
-    Button more;
-
-    @FXML
-    VBox gridBox;
 
     @FXML
     GridPane simulationsGrid;
@@ -41,54 +38,11 @@ public class ControllerManageSimulations extends ControllerMenu implements Initi
     int gridRows;
     String name;
     RowConstraints rowConstraints;
-
-    ArrayList<Simulation> simulations;
+    ColumnConstraints nameColumnCostraints, descriptionColumnCostraints, dateColumnCostraints, optionsColumnCostraints;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        rowConstraints = new RowConstraints();
-        rowConstraints.setMinHeight(50);
-        //rowConstraints.setPrefHeight(100);
 
-        int j;
-        simulations=new ArrayList<>();
-        SimulationStore.writeAllItem("simulations",simulations);
-        simulations = (ArrayList<Simulation>)SimulationStore.readAllItem("simulations");
-
-        for(gridRows=0; gridRows < simulations.size(); gridRows++){
-            for(j=0;j<3;j++){
-                Label node = null;
-                switch (j){
-                    case 0:
-                        node = new Label(simulations.get(gridRows).getName());
-                        break;
-                    case 1:
-                        node = new Label("12/07/2019");
-                        //node = new Label(simulations.get(gridRows).getDate());
-                        break;
-                    case 2:
-                        node = new Label(simulations.get(gridRows).getDescr());
-                        break;
-                }
-
-                simulationsGrid.setConstraints(node,j,gridRows);
-                simulationsGrid.getChildren().add(node);
-            }
-
-            HBox optionImages = null;
-            try {
-                optionImages = FXMLLoader.load(getClass().getResource("graphics/SimulationOptions.fxml"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println(optionImages);
-            optionImages.getChildren().get(0).setOnMouseReleased(e->{
-            });
-            simulationsGrid.setConstraints(optionImages,j,gridRows);
-            simulationsGrid.getChildren().add(optionImages);
-
-            simulationsGrid.getRowConstraints().add(gridRows, rowConstraints);
-        }
     }
 
     public void resizeGrid(){
@@ -124,6 +78,92 @@ public class ControllerManageSimulations extends ControllerMenu implements Initi
 
             simulationsGrid.getRowConstraints().add(gridRows, rowConstraints);
             gridRows++;
+        }
+    }
+
+    @Override
+    public void setSimulations(ArrayList<Simulation> simulations) {
+        super.setSimulations(simulations);
+
+        rowConstraints = new RowConstraints();
+        nameColumnCostraints = new ColumnConstraints();
+        descriptionColumnCostraints = new ColumnConstraints();
+        dateColumnCostraints = new ColumnConstraints();
+        optionsColumnCostraints = new ColumnConstraints();
+        nameColumnCostraints.setPercentWidth(25);
+        descriptionColumnCostraints.setPercentWidth(25);
+        dateColumnCostraints.setPercentWidth(25);
+        optionsColumnCostraints.setPercentWidth(25);
+
+        simulationsGrid.getColumnConstraints().clear();
+        simulationsGrid.getColumnConstraints().addAll(nameColumnCostraints, descriptionColumnCostraints,dateColumnCostraints,optionsColumnCostraints);
+
+        rowConstraints.setMinHeight(50);
+        //rowConstraints.setPrefHeight(100);
+
+        int j;
+
+        for(gridRows=0; gridRows < simulations.size(); gridRows++){
+            int gridNumber=gridRows;
+            Simulation simulation = simulations.get(gridRows);
+            for(j=0;j<3;j++){
+                Label node = null;
+                switch (j){
+                    case 0:
+                        node = new Label(simulation.getName());
+                        break;
+                    case 1:
+                        node = new Label(simulation.getDescr());
+                        break;
+                    case 2:
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                        Date date = simulation.getDate();
+                        node = new Label(formatter.format(date));
+                        break;
+                }
+                node.setPadding(new Insets(0,0,0,10));
+                simulationsGrid.setConstraints(node,j,gridRows);
+                //simulationsGrid.getColumnConstraints().add(gridRows*4+j, nameColumnCostraints);
+                simulationsGrid.getChildren().add(node);
+            }
+            //simulationsGrid.getColumnConstraints().add(gridRows*4+j, nameColumnCostraints);
+
+            HBox optionImages = null;
+            try {
+                optionImages = FXMLLoader.load(getClass().getResource("graphics/SimulationOptions.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(optionImages);
+            optionImages.getChildren().get(0).setOnMouseReleased(e->{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/SimulationResult.fxml"));
+                AnchorPane root=null;
+
+                try {
+                    root = (AnchorPane) loader.load();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                ControllerSimulationResult controllerSimulationResult= loader.getController();
+                controllerSimulationResult.mainPane=mainPane;
+
+                controllerSimulationResult.setSimulation(simulation);
+                controllerSimulationResult.initializeLoadedStage();
+
+                mainPane.getChildren().clear();
+                mainPane.getChildren().setAll(root.getChildren());
+            });
+            optionImages.getChildren().get(1).setOnMouseReleased(e->{
+
+            });
+            optionImages.getChildren().get(2).setOnMouseReleased(e->{
+                simulations.remove(simulation);
+                simulationsGrid.getChildren().remove(1+(gridNumber)*4,gridNumber*4 + 5);
+            });
+            simulationsGrid.setConstraints(optionImages,j,gridRows);
+            simulationsGrid.getChildren().add(optionImages);
+
+            simulationsGrid.getRowConstraints().add(gridRows, rowConstraints);
         }
     }
 

@@ -79,6 +79,7 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
             });
             radio.setToggleGroup(radioParametersGroup);
             radioBox.getChildren().add(radio);
+            comparatorAct=comparator;
         }
         radio.fire();
     }
@@ -148,13 +149,13 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
     }
 
     public void saveSimulation() {
-        simulation = new Simulation(name, description, simResults,comparators);
         simulations.add(simulation);
         SimulationStore.writeAllItem("simulations",simulations);
     }
 
     public void chooseParameter(ActionEvent actionEvent){
-        String comparatorLabel=((RadioButton)actionEvent.getSource()).getText();
+        //String comparatorLabel=((RadioButton)actionEvent.getSource()).getText();
+        String comparatorLabel = comparatorAct.getLabel();
         parameterIndex = new ParameterIndex(comparatorLabel, simResults);
         initializeChart();
         initializeStatistics();
@@ -212,5 +213,11 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
+    }
+
+    @Override
+    public void setSimulations(ArrayList<Simulation> simulations) {
+        super.setSimulations(simulations);
+        simResults = simulation.getListOfSimulationResults();
     }
 }

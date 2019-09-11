@@ -6,7 +6,7 @@ public abstract class LabeledCategoryComparator extends LabeledComparator{
     private int categoriesCounter;
     private String[] categories;
 
-    LabeledCategoryComparator(String label, String descr, String[] categories){
+    public LabeledCategoryComparator(String label, String descr, String[] categories){
         super(label,descr);
         this.categories=categories;
         categoriesCounter=categories.length;

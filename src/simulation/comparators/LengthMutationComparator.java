@@ -6,7 +6,7 @@ import simulation.logic.DNAFragment;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class LengthMutationComparator extends LabeledCategoryComparator implements Serializable {
+public class LengthMutationComparator extends LabeledCategoryComparator{
 
     private static final String[] categories= {"Inserzione di frame","Delezione di frame","Lunghezza immutata","Frame-shift con inserzione","Frame-shift con delezione"};
 

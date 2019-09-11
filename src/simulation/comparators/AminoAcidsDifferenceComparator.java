@@ -6,7 +6,7 @@ import simulation.logic.DNAFragment;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AminoAcidsDifferenceComparator extends LabeledComparator implements Serializable {
+public class AminoAcidsDifferenceComparator extends LabeledComparator{
 
     public AminoAcidsDifferenceComparator(){
         super("AMINOACIDS-DIFF","Mutazioni missenso (Differenze di amminoacidi)");

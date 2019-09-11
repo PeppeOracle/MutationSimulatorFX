@@ -6,14 +6,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import simulation.comparators.LabeledComparator;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 public class Simulation implements Serializable {
     //se vogliamo fare le statistiche a run time
     private String name;
     private String descr;
+    private Date date;
     private ArrayList<SimulationResults> listOfSimulationResults;
     private ArrayList<LabeledComparator> listOfLabeledComparators;
 
@@ -27,6 +30,16 @@ public class Simulation implements Serializable {
         this();
         this.name=name;
         this.descr=descr;
+        date= new Date();
+        this.listOfSimulationResults = listOfSimulationResults;
+        this.listOfLabeledComparators = listOfLabeledComparators;
+    }
+
+    public Simulation(String name, String descr, Date date, ArrayList<SimulationResults> listOfSimulationResults,ArrayList<LabeledComparator> listOfLabeledComparators) {
+        this();
+        this.name=name;
+        this.descr=descr;
+        this.date=date;
         this.listOfSimulationResults = listOfSimulationResults;
         this.listOfLabeledComparators = listOfLabeledComparators;
     }
@@ -39,6 +52,14 @@ public class Simulation implements Serializable {
         this.name=name;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date=date;
+    }
+
     public String getDescr() {
         return descr;
     }
@@ -48,17 +69,17 @@ public class Simulation implements Serializable {
     }
 
     public ArrayList<String> getComparatorsLabel(){
-        /*ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         for(Map.Entry<String,Integer> entry : listOfSimulationResults.get(0).getHashMapOfLabeledComparator().entrySet()){
             list.add(entry.getKey());
         }
         return list;
-        */
-        ArrayList<String> list = new ArrayList<>();
+
+        /*ArrayList<String> list = new ArrayList<>();
         for(LabeledComparator comparator : listOfLabeledComparators){
             list.add(comparator.getLabel());
         }
-        return list;
+        return list;*/
     }
 
     public ArrayList<LabeledComparator> getLabeledComparators(){
