@@ -6,10 +6,10 @@ import simulation.logic.DNAFragment;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AminoAcidsDifferenceComparator extends LabeledComparator{
+public class NumberOfMissenseMutationComparator extends LabeledComparator{
 
-    public AminoAcidsDifferenceComparator(){
-        super("AMINOACIDS-DIFF","Mutazioni missenso (Differenze di amminoacidi)");
+    public NumberOfMissenseMutationComparator(){
+        super("NUMBER-OF-MISSENSE-MUTATION","Mutazioni missenso (Differenze di amminoacidi)");
     }
 
     @Override
