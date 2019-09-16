@@ -46,13 +46,7 @@ public class VariableSimulation {
         return this.parameterIndices;
     }
 
-    public void executeVariationOfOperation(String operation){
-
-        int variationOfInt = getIntByNameOperation(operation);
-        if(variationOfInt == -1){
-            return;
-        }
-
+    public void executeVariationOfOperation(){
         pivot = getPivot();
 
         for(int i = 1; i <= numberOfSimulation; i++){
@@ -61,14 +55,16 @@ public class VariableSimulation {
             double p[][][] = new double[4][4][3];
             for(int x=0 ; x<4 ; x++){
                 for(int z=0; z<3 ; z++){
-                    double pPivot = mutationSimulator.getMutator().getMutationProbabilities()[x][variationOfInt][z];
-                    if (i < pivot) {
-                        pPivot = pPivot - (scale[x][variationOfInt][z] * pPivot * i);
-                    } else if (i > pivot) {
-                        pPivot = pPivot + (scale[x][variationOfInt][z] * pPivot * i);
+                    for(int y = 0; y < 3; y++) {
+                        double pPivot = mutationSimulator.getMutator().getMutationProbabilities()[x][y][z];
+                        if (i < pivot) {
+                            pPivot = pPivot - (scale[x][y][z] * pPivot * i);
+                        } else if (i > pivot) {
+                            pPivot = pPivot + (scale[x][y][z] * pPivot * i);
+                        }
+                        p[x][y][z] = pPivot;
+                        p[x][3][z] = 1 - (p[x][0][z] + p[x][1][z] + p[x][2][z]);
                     }
-                    p[x][variationOfInt][z] = pPivot;
-                    p[x][3][z] = 1-(p[x][0][z]+p[x][1][z]+p[x][2][z]);
                 }
             }
 
@@ -94,7 +90,7 @@ public class VariableSimulation {
      * non vengono modificate le probabilità
      * @return
      */
-    public  ArrayList<Simulation> getSimulation(){
+    public  ArrayList<Simulation> executeSimulations(){
         for(int i = 0 ; i < numberOfSimulation; i++){
             Mutator mut = listOfMutator.get(i);
             Simulation sim = listOfSimulation.get(i);
@@ -103,18 +99,4 @@ public class VariableSimulation {
         }
         return listOfSimulation;
     }
-
-    private int getIntByNameOperation(String name){
-        switch (name){
-            case "inserimento":
-                return 0;
-            case "cancellazione":
-                return 1;
-            case "sostituzione":
-                return 2;
-        }
-        return -1;
-    }
-
-
 }
