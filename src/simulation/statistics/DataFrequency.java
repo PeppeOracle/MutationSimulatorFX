@@ -5,18 +5,23 @@ import org.apache.commons.math3.stat.Frequency;
 import javax.xml.crypto.Data;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public class DataSort {
+public class DataFrequency {
     private Frequency frequency;
     private int range;
 
-    public DataSort(int range){
+    public DataFrequency(int range){
         this.frequency = frequency = new Frequency();
         this.range = range;
     }
 
     public void addValue(int value){
         frequency.addValue(value);
+    }
+
+    public double getPct(int value){
+        return frequency.getCount(value);
     }
 
 
@@ -31,6 +36,10 @@ public class DataSort {
 
     public int getRange(){
         return range;
+    }
+
+    public List getMode(){
+        return frequency.getMode();
     }
 
     public ArrayList<Point> getArrayListPoint(){
