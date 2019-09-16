@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ControllerVariateStatistic2 extends ControllerMenu implements Initializable {
+public class ControllerVariateStatistic3 extends ControllerMenu implements Initializable {
 
     @FXML
     AnchorPane probabilitiesBoxAP;

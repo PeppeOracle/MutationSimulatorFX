@@ -6,16 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import simulation.logic.MutationSimulator;
 import simulation.logic.VariableSimulation;
 import simulation.statistics.ParameterIndex;
 import simulation.wrapper.Simulation;
-import simulation.wrapper.SimulationResults;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +28,7 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
     MutationSimulator mutationSimulator;
     Simulation simulation;
     int iterations;
-    double variation;
+    double[][][] variation;
     ArrayList<Simulation> simulationsList;
     ArrayList<ParameterIndex> parameterIndexList;
 
@@ -65,20 +62,20 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/VariateStatistic2.fxml"));
         AnchorPane root = (AnchorPane) loader.load();
-        ControllerVariateStatistic2 controllerVariateStatistic2= loader.getController();
-        controllerVariateStatistic2.mainPane=mainPane;
+        //ControllerVariateStatistic2 controllerVariateStatistic2 = loader.getController();
+        //controllerVariateStatistic2.mainPane=mainPane;
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
 
-        variation = Double.valueOf(controllerProbabilities.readProbabilitiesFromGrid()[0][0][0]);
+        variation = controllerProbabilities.readProbabilitiesFromGrid();
         iterations = Integer.valueOf(iterationsField.getText());
 
         simulationsList = new VariableSimulation(iterations, variation, simulation, mutationSimulator).getSimulation();
 
-        controllerVariateStatistic2.setSimulationsList(simulationsList);
+        //controllerVariateStatistic2.setSimulationsList(simulationsList);
 
-        controllerVariateStatistic2.initializeLoadedStage();
+        //controllerVariateStatistic2.initializeLoadedStage();
 
         /*
         comparisonGrid= (GridPane)mainPane.getScene().lookup("#comparisonGrid");

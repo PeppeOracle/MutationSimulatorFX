@@ -87,6 +87,34 @@ public class ControllerProbabilities implements Initializable {
         return probabilities;
     }
 
+    public void setProbabilities(double[][][] probabilities) {
+
+        int r=7,c=4,fx=4,fy=3,fz=3;
+
+        chooseGrid(null);
+
+        if(equalOp.isSelected()){
+            r-=2;
+            fy=1;
+        }
+        if(equalNucleotides.isSelected()){
+            r-=3;
+            c=1;
+            fx=1;
+        }
+        if(equalIndex.isSelected()){
+            fz=1;
+        }
+
+        for(int x=0 ; x<fx ; x++){
+            for(int z=0; z<fz ; z++){
+                for(int y=0; y<fy; y++){
+                    ((TextField)probabilitiesGridPanes[z].getChildren().get(r+x+(y*c))).setText(""+probabilities[x][y][z]);
+                }
+            }
+        }
+    }
+
     public void chooseGrid(ActionEvent actionEvent){
         String urlGrid = "graphics/ProbabilitiesGrid.fxml";
 
@@ -185,5 +213,20 @@ public class ControllerProbabilities implements Initializable {
 
     public void setEqualOp(CheckBox equalOp) {
         this.equalOp = equalOp;
+    }
+
+    public boolean[] getEqualProbabilities(){
+        boolean[] equal=new boolean[3];
+        equal[0]=equalOp.isSelected();
+        equal[1]=equalNucleotides.isSelected();
+        equal[2]=equalIndex.isSelected();
+
+        return equal;
+    }
+
+    public void setEqualProbabilities(boolean[] equal){
+        equalOp.setSelected(equal[0]);
+        equalNucleotides.setSelected(equal[1]);
+        equalIndex.setSelected(equal[2]);
     }
 }

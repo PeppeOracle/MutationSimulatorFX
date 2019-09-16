@@ -7,13 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import simulation.comparators.*;
@@ -28,8 +25,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Locale;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ControllerSimulationResult extends ControllerMenu implements Initializable {
@@ -91,27 +87,12 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         Double numero = 123.1258965;
         numero = Integer.parseInt(formatter.format(numero));*/
 
-        Label positionIndex = new Label("Indici di posizione:");
-        positionIndex.setStyle("-fx-font-weight: bold");
         Label mean = new Label("Media: " + (float)parameterIndex.getMean());
         Label median = new Label("Mediana: " + (float)parameterIndex.getMedian());
-        Label moda = new Label("Moda: " + "DA FAREQ");
-
-        Label variabilityIndex = new Label("Indici di variabilità:");
-        variabilityIndex.setStyle("-fx-font-weight: bold");
-        Label variance = new Label("Varianza: " + (float)parameterIndex.getVariance());
         Label standardDeviation = new Label("Deviazione Standard: " + (float)parameterIndex.getStandardDeviation());
-        Label absoluteAverageDifference = new Label("Scarto medio assoluto: " + (float)parameterIndex.getScartoMedioAssoluto());
-        Label rangeVariation = new Label("Ampiezza del campo di variazione: " + (float)parameterIndex.getAmpiezzaIntervalloVariazione());
-        Label coefficientVariation = new Label("Coefficiente di variazione: " + (float)parameterIndex.getCoefficienteDiVariazione());
-
-        Label shapeIndex = new Label("Indici di forma:");
-        shapeIndex.setStyle("-fx-font-weight: bold");
-        Label skewness = new Label("Indice di asimmetria: " + (float)parameterIndex.getSkewness());
-        Label kurtosis = new Label("Indice di curtosi: " + (float)parameterIndex.getKurtosis());
-
+        Label variance = new Label("Varianza: " + (float)parameterIndex.getVariance());
         statisticsBox.getChildren().clear();
-        statisticsBox.getChildren().addAll(positionIndex,mean,median,moda,variabilityIndex,variance,standardDeviation,absoluteAverageDifference,rangeVariation,coefficientVariation,shapeIndex,skewness,kurtosis);
+        statisticsBox.getChildren().addAll(mean,median,standardDeviation,variance);
     }
 
     private void initializeChart(){
@@ -149,6 +130,13 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
     }
 
     public void saveSimulation() {
+        Simulation simulationToRemove=null;
+        for(Simulation item : simulations){
+            if(item.getName().equals(simulation.getName())){
+                simulations.remove(item);
+                break;
+            }
+        }
         simulations.add(simulation);
         SimulationStore.writeAllItem("simulations",simulations);
     }
@@ -185,6 +173,11 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         this.simulation = simulation;
         simResults = simulation.getListOfSimulationResults();
         parameterIndex = new ParameterIndex(simulation.getComparatorsLabel().get(0), simResults);
+
+        resources=simulation.getResources();
+        if(resources==null){
+            resources=new HashMap<>();
+        }
     }
 
     public void variateStatistic(ActionEvent actionEvent) throws IOException {
@@ -203,13 +196,14 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
 
     public void previousPage(ActionEvent actionEvent) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation3.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation4.fxml"));
 
         AnchorPane root = (AnchorPane) loader.load();
-        ControllerNewSimulation3 controllerNewSimulation3= loader.getController();
-        controllerNewSimulation3.mainPane = mainPane;
+        ControllerNewSimulation4 controllerNewSimulation4 = loader.getController();
+        controllerNewSimulation4.mainPane = mainPane;
+        controllerNewSimulation4.root = root;
 
-        controllerNewSimulation3.setResources(resources);
+        controllerNewSimulation4.setResources((HashMap)resources.clone());
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());

@@ -37,7 +37,7 @@ public class ControllerExecuteMutation2 extends ControllerMenu implements Initia
 
     NucleotidesDifferenceComparator nucleotidesDifferenceComparator;
     NucleotidesBooleanComparator nucleotidesSingleDifferenceComparator;
-    AminoAcidsDifferenceComparator aminoAcidsDifferenceComparator;
+    NumberOfMissenseMutationComparator aminoAcidsDifferenceComparator;
     AminoAcidsBooleanComparator aminoAcidsSingleDifferenceComparator;
 
     @Override
@@ -45,7 +45,7 @@ public class ControllerExecuteMutation2 extends ControllerMenu implements Initia
         comparators = new ArrayList<>();
         nucleotidesDifferenceComparator = new NucleotidesDifferenceComparator();
         nucleotidesSingleDifferenceComparator = new NucleotidesBooleanComparator();
-        aminoAcidsDifferenceComparator = new AminoAcidsDifferenceComparator();
+        aminoAcidsDifferenceComparator = new NumberOfMissenseMutationComparator();
         aminoAcidsSingleDifferenceComparator = new AminoAcidsBooleanComparator();
     }
 
@@ -123,7 +123,6 @@ public class ControllerExecuteMutation2 extends ControllerMenu implements Initia
 
         double nodeWidth = comparisonGrid.getMaxWidth()/fragmentSize;
         double nodeMaxWidth = comparisonGrid.getMaxWidth();
-        System.out.println("comparisonGrid width " + comparisonGrid.getMaxWidth());
 
         if(fragmentSize>50) {
             while (comparisonGrid.getRowConstraints().size() > 1) {

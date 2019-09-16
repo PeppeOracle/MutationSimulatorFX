@@ -16,6 +16,7 @@ import simulation.logic.DNAFragment;
 import simulation.utils.StringConverter;
 
 import java.awt.dnd.DnDConstants;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,6 +34,9 @@ public class ControllerRandom implements Initializable {
 
     HBox lunghezzaSequenzaBox;
     VBox inserisciSequenzaBox;
+
+    boolean random;
+    Button inserisciSequenza;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,6 +56,7 @@ public class ControllerRandom implements Initializable {
     }
 
     private void randomSelectedTrue(){
+        random=true;
         if(lunghezzaSequenzaBox==null) {
             lunghezzaSequenzaBox = new HBox();
             Label lunghezzaSequenzaLabel = new Label("Lunghezza sequenza di codoni");
@@ -68,6 +73,7 @@ public class ControllerRandom implements Initializable {
     }
 
     private void randomSelectedFalse(){
+        random=false;
         if(inserisciSequenzaBox==null) {
             inserisciSequenzaBox = new VBox();
 
@@ -77,7 +83,7 @@ public class ControllerRandom implements Initializable {
 
             Button sfogliaFile= new Button("Sfoglia file");
 
-            Button inserisciSequenza= new Button("Inserisci");
+            inserisciSequenza= new Button("Inserisci");
             inserisciSequenza.setOnAction(e->{
                 if(insertSequence==null){
                     insertSequence = new TextField();
@@ -121,7 +127,7 @@ public class ControllerRandom implements Initializable {
     }
 
     private DNAFragment generateRandomDNAFragment(){
-        return new DNAFragment(Integer.valueOf(sequenceLenght.getText()));
+        return new DNAFragment(Integer.valueOf(sequenceLenght.getText())*3);
     }
 
     public AnchorPane getRandomAP(){
@@ -165,5 +171,32 @@ public class ControllerRandom implements Initializable {
 
     public void setInsertSequence(TextField insertSequence) {
         this.insertSequence = insertSequence;
+    }
+
+    public void setRandomCheck(boolean value){
+        if(randomCheckBox.isSelected()!=value){
+            randomCheckBox.fire();
+        }
+    }
+
+    public void setSequence(String sequence){
+        inserisciSequenza.fire();
+        insertSequence.setText(sequence);
+    }
+
+    public String getSequence(){
+        return insertSequence.getText();
+    }
+
+    public void setLenght(int lenght){
+        sequenceLenght.setText(""+lenght);
+    }
+
+    public boolean getRandomCheck(){
+        return random;
+    }
+
+    public int getLenght(){
+        return Integer.valueOf(sequenceLenght.getText());
     }
 }

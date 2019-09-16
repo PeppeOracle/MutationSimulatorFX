@@ -6,10 +6,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import simulation.comparators.LabeledComparator;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Simulation implements Serializable {
@@ -17,6 +17,7 @@ public class Simulation implements Serializable {
     private String name;
     private String descr;
     private Date date;
+    private HashMap<String,Object> resources;
     private ArrayList<SimulationResults> listOfSimulationResults;
     private ArrayList<LabeledComparator> listOfLabeledComparators;
 
@@ -26,15 +27,6 @@ public class Simulation implements Serializable {
         listOfSimulationResults = new ArrayList<>();
     }
 
-    public Simulation(String name, String descr, ArrayList<SimulationResults> listOfSimulationResults,ArrayList<LabeledComparator> listOfLabeledComparators) {
-        this();
-        this.name=name;
-        this.descr=descr;
-        date= new Date();
-        this.listOfSimulationResults = listOfSimulationResults;
-        this.listOfLabeledComparators = listOfLabeledComparators;
-    }
-
     public Simulation(String name, String descr, Date date, ArrayList<SimulationResults> listOfSimulationResults,ArrayList<LabeledComparator> listOfLabeledComparators) {
         this();
         this.name=name;
@@ -42,6 +34,16 @@ public class Simulation implements Serializable {
         this.date=date;
         this.listOfSimulationResults = listOfSimulationResults;
         this.listOfLabeledComparators = listOfLabeledComparators;
+    }
+
+    public Simulation(String name, String descr, Date date, ArrayList<SimulationResults> listOfSimulationResults,ArrayList<LabeledComparator> listOfLabeledComparators ,HashMap<String,Object> resources) {
+        this();
+        this.name=name;
+        this.descr=descr;
+        this.date=date;
+        this.listOfSimulationResults = listOfSimulationResults;
+        this.listOfLabeledComparators = listOfLabeledComparators;
+        this.resources=resources;
     }
 
     public String getName() {
@@ -58,6 +60,14 @@ public class Simulation implements Serializable {
 
     public void setDate(Date date) {
         this.date=date;
+    }
+
+    public HashMap<String, Object> getResources() {
+        return resources;
+    }
+
+    public void setResources(HashMap<String, Object> resources) {
+        this.resources = resources;
     }
 
     public String getDescr() {

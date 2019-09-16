@@ -6,11 +6,12 @@ import simulation.utils.NucleotidesUtils;
 import simulation.utils.StringConverter;
 import simulation.wrapper.MutationResults;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Mutator {
+public class Mutator implements Serializable {
     /*
         p[x][y][z]:
             x - Nucleotide

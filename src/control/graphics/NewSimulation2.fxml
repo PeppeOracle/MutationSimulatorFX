@@ -157,16 +157,6 @@
                            </bottom>
                         </BorderPane>
                      </bottom>
-                     <center>
-                        <AnchorPane fx:id="probabilitiesBoxAP" maxHeight="-Infinity" maxWidth="-Infinity" BorderPane.alignment="CENTER">
-                           <children>
-
-                           </children>
-                           <BorderPane.margin>
-                              <Insets left="230.0" />
-                           </BorderPane.margin>
-                        </AnchorPane>
-                     </center>
                   </BorderPane>
                </children>
             </AnchorPane>

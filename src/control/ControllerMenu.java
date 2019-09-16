@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 public abstract class ControllerMenu {
 
     protected AnchorPane mainPane;
+    protected AnchorPane root;
     protected static HashMap<String,Object> resources;
     protected static ArrayList<Simulation> simulations;
 

@@ -72,7 +72,6 @@ public class ControllerManageSimulations extends ControllerMenu implements Initi
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(optionImages);
             simulationsGrid.setConstraints(optionImages,j,gridRows);
             simulationsGrid.getChildren().add(optionImages);
 
@@ -84,18 +83,20 @@ public class ControllerManageSimulations extends ControllerMenu implements Initi
     @Override
     public void setSimulations(ArrayList<Simulation> simulations) {
         super.setSimulations(simulations);
+        simulationsGrid.getChildren().clear();
 
         rowConstraints = new RowConstraints();
         nameColumnCostraints = new ColumnConstraints();
         descriptionColumnCostraints = new ColumnConstraints();
         dateColumnCostraints = new ColumnConstraints();
         optionsColumnCostraints = new ColumnConstraints();
-        nameColumnCostraints.setPercentWidth(25);
-        descriptionColumnCostraints.setPercentWidth(25);
-        dateColumnCostraints.setPercentWidth(25);
-        optionsColumnCostraints.setPercentWidth(25);
+        nameColumnCostraints.setPercentWidth(29);
+        descriptionColumnCostraints.setPercentWidth(45);
+        dateColumnCostraints.setPercentWidth(8);
+        optionsColumnCostraints.setPercentWidth(18);
 
         simulationsGrid.getColumnConstraints().clear();
+        simulationsGrid.getRowConstraints().clear();
         simulationsGrid.getColumnConstraints().addAll(nameColumnCostraints, descriptionColumnCostraints,dateColumnCostraints,optionsColumnCostraints);
 
         rowConstraints.setMinHeight(50);
@@ -134,7 +135,6 @@ public class ControllerManageSimulations extends ControllerMenu implements Initi
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(optionImages);
             optionImages.getChildren().get(0).setOnMouseReleased(e->{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/SimulationResult.fxml"));
                 AnchorPane root=null;
@@ -158,13 +158,16 @@ public class ControllerManageSimulations extends ControllerMenu implements Initi
             });
             optionImages.getChildren().get(2).setOnMouseReleased(e->{
                 simulations.remove(simulation);
-                simulationsGrid.getChildren().remove(1+(gridNumber)*4,gridNumber*4 + 5);
+                setSimulations(simulations);
+                //simulationsGrid.getChildren().remove(1+(gridNumber)*4,gridNumber*4 + 5);
             });
             simulationsGrid.setConstraints(optionImages,j,gridRows);
             simulationsGrid.getChildren().add(optionImages);
 
             simulationsGrid.getRowConstraints().add(gridRows, rowConstraints);
         }
+        simulationsGrid.setGridLinesVisible(false);
+        simulationsGrid.setGridLinesVisible(true);
     }
 
     public void simulationResult(ActionEvent event){
