@@ -3,7 +3,6 @@ package simulation.statistics;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import simulation.wrapper.MutationResults;
-import simulation.wrapper.Simulation;
 import simulation.wrapper.SimulationResults;
 
 import java.awt.*;
@@ -17,21 +16,22 @@ import java.util.List;
 
 public class ParameterIndex extends DescriptiveStatistics {
     private String name;
-    private DataSort dataSort;
+    private DataFrequency dataFrequency;
 
     private ArrayList<SimulationResults> listOfSimulationResults;
+
 
     public ParameterIndex(String name, ArrayList<SimulationResults> listOfSimulationResults) {
         this.name = name;
         this.listOfSimulationResults = listOfSimulationResults;
-        dataSort = new DataSort(listOfSimulationResults.get(0).getSize() + 1);
+        dataFrequency = new DataFrequency(listOfSimulationResults.get(0).getSize() + 1);
 
         if(isFieldOfMutationResults(name)){
             loadDSMutation();
         }else if(listOfSimulationResults.get(0).getHashMapOfLabeledComparator().get(name) != null){
             loadDSComparator();
         }
-        loadDSComparator();
+        //loadDSComparator();
     }
 
 
@@ -40,7 +40,7 @@ public class ParameterIndex extends DescriptiveStatistics {
             HashMap<String,Integer> map = simulationResults.getHashMapOfLabeledComparator();
             int value = map.get(name);
             addValue((double)value);
-            dataSort.addValue(value);
+            dataFrequency.addValue(value);
         }
     }
 
@@ -49,7 +49,7 @@ public class ParameterIndex extends DescriptiveStatistics {
             MutationResults mutationResults = simulationResults.getMutationResults();
             int value = (int)invokeGetter(mutationResults,name);
             addValue((double)value);
-            dataSort.addValue(value);
+            dataFrequency.addValue(value);
         }
     }
 
@@ -84,7 +84,7 @@ public class ParameterIndex extends DescriptiveStatistics {
     }
 
     public List getModa(){
-        return null;
+        return dataFrequency.getMode();
     }
 
     public double getAmpiezzaIntervalloVariazione(){
@@ -92,7 +92,7 @@ public class ParameterIndex extends DescriptiveStatistics {
     }
 
     public double getScartoMedioAssoluto(){
-        int[] xf = dataSort.getArrayOfNumber();
+        int[] xf = dataFrequency.getArrayOfNumber();
 
         double mean = getMean();
         double tmp = 0;
@@ -106,7 +106,19 @@ public class ParameterIndex extends DescriptiveStatistics {
         return getStandardDeviation()/getMean();
     }
 
+    public double getEntropy(){
+        double sum = 0;
+        for(int i = 0; i < dataFrequency.getRange(); i++){
+            double value = dataFrequency.getPct(i);
+            if(value < 1E-15){
+                sum= sum + value*Math.log(value);
+            }
+        }
+        return 0;
+    }
+
+
     public ArrayList<Point> getPointsFrequency(){
-        return dataSort.getArrayListPoint();
+        return dataFrequency.getArrayListPoint();
     }
 }
