@@ -46,41 +46,43 @@ public class VariableSimulation {
         return this.parameterIndices;
     }
 
-    public void executeVariationOfOperation(){
+    private void executeVariationOfOperation(){
         pivot = getPivot();
+        Mutator mutator = this.mutationSimulator.getMutator();
+        double[][][] mutationProbabilities = mutator.getMutationProbabilities();
 
         for(int i = 1; i <= numberOfSimulation; i++){
             Simulation sim = new Simulation();
-            Mutator mutator = this.mutationSimulator.getMutator();
             double p[][][] = new double[4][4][3];
             for(int x=0 ; x<4 ; x++){
                 for(int z=0; z<3 ; z++){
                     for(int y = 0; y < 3; y++) {
-                        double pPivot = mutationSimulator.getMutator().getMutationProbabilities()[x][y][z];
+                        double pPivot = mutationProbabilities[x][y][z];
                         if (i < pivot) {
-                            pPivot = pPivot - (scale[x][y][z] * pPivot * i);
+                            pPivot = pPivot - (scale[x][y][z]* (pivot-i));
                         } else if (i > pivot) {
-                            pPivot = pPivot + (scale[x][y][z] * pPivot * i);
+                            pPivot = pPivot + (scale[x][y][z]* (i-pivot));
                         }
                         p[x][y][z] = pPivot;
-                        p[x][3][z] = 1 - (p[x][0][z] + p[x][1][z] + p[x][2][z]);
                     }
+                    p[x][3][z] = 1 - (p[x][0][z] + p[x][1][z] + p[x][2][z]);
                 }
             }
 
+
             if (i < pivot) {
                 sim.setName(simulation.getName() + " -" + (i % pivot));
-                mutator.setMutationProbabilities(p);
+                Mutator mutatorMod = new Mutator(mutator.getFragmentToMutate(),p);
                 listOfSimulation.add(sim);
-                listOfMutator.add(mutator);
+                listOfMutator.add(mutatorMod);
             } else if (i > pivot) {
                 sim.setName(simulation.getName() + " +" + (i % pivot));
-                mutator.setMutationProbabilities(p);
+                Mutator mutatorMod = new Mutator(mutator.getFragmentToMutate(),p);
                 listOfSimulation.add(sim);
-                listOfMutator.add(mutator);
+                listOfMutator.add(mutatorMod);
             }else{
                 listOfSimulation.add(this.simulation);
-                listOfMutator.add(this.mutationSimulator.getMutator());
+                listOfMutator.add(mutator);
             }
         }
     }
@@ -91,6 +93,7 @@ public class VariableSimulation {
      * @return
      */
     public  ArrayList<Simulation> executeSimulations(){
+        executeVariationOfOperation();
         for(int i = 0 ; i < numberOfSimulation; i++){
             Mutator mut = listOfMutator.get(i);
             Simulation sim = listOfSimulation.get(i);

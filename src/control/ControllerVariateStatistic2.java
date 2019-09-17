@@ -34,7 +34,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 
-public class ControllerNewSimulation4 extends ControllerMenu implements Initializable {
+public class ControllerVariateStatistic2 extends ControllerMenu implements Initializable {
 
     Mutator mutator;
     int iterations;
@@ -74,8 +74,6 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
         aminoAcidsDifferenceComparator = new NumberOfMissenseMutationComparator();
         aminoAcidsBooleanComparator = new AminoAcidsBooleanComparator();
         lengthComparator = new LengthMutationComparator();
-        pieOperationResults = new ArrayList();
-        barOperationResults = new ArrayList();
     }
 
     @Override
@@ -123,7 +121,7 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
         if(((CheckBox)actionEvent.getSource()).isSelected()){
             comparators.add(aminoAcidsBooleanComparator);
         } else{
-            comparators.remove(aminoAcidsBooleanComparator);
+            comparators.remove(nucleotidesBooleanComparator);
         }}
 
     public void checkNUCLEOTIDESDIFF(ActionEvent actionEvent) {
@@ -145,64 +143,6 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
             comparators.add(lengthComparator);
         } else{
             comparators.remove(lengthComparator);
-            for(LabeledComparator comp : comparators)
-            System.out.println(comp);
-        }}
-
-    public void checkInserimentoPie(ActionEvent actionEvent) {
-        if(((CheckBox)actionEvent.getSource()).isSelected()){
-            pieOperationResults.add("numberOfEntries");
-        } else{
-            pieOperationResults.remove("numberOfEntries");
-        }}
-
-    public void checkRimozionePie(ActionEvent actionEvent) {
-        if(((CheckBox)actionEvent.getSource()).isSelected()){
-            pieOperationResults.add("numberOfRemovals");
-        } else{
-            pieOperationResults.remove("numberOfRemovals");
-        }}
-
-    public void checkInvarianzaPie(ActionEvent actionEvent) {
-        if(((CheckBox)actionEvent.getSource()).isSelected()){
-            pieOperationResults.add("numberOfInvariances");
-        } else{
-            pieOperationResults.remove("numberOfInvariances");
-        }}
-
-    public void checkSostituzionePie(ActionEvent actionEvent) {
-        if(((CheckBox)actionEvent.getSource()).isSelected()){
-            pieOperationResults.add("numberOfReplacements");
-        } else{
-            pieOperationResults.remove("numberOfReplacements");
-        }}
-
-    public void checkInserimentoBar(ActionEvent actionEvent) {
-        if(((CheckBox)actionEvent.getSource()).isSelected()){
-            barOperationResults.add("numberOfEntries");
-        } else{
-            barOperationResults.remove("numberOfEntries");
-        }}
-
-    public void checkRimozioneBar(ActionEvent actionEvent) {
-        if(((CheckBox)actionEvent.getSource()).isSelected()){
-            barOperationResults.add("numberOfRemovals");
-        } else{
-            barOperationResults.remove("numberOfRemovals");
-        }}
-
-    public void checkSostituzioneBar(ActionEvent actionEvent) {
-        if(((CheckBox)actionEvent.getSource()).isSelected()){
-            barOperationResults.add("numberOfReplacements");
-        } else{
-            barOperationResults.remove("numberOfReplacements");
-        }}
-
-    public void checkInvarianzaBar(ActionEvent actionEvent) {
-        if(((CheckBox)actionEvent.getSource()).isSelected()){
-            barOperationResults.add("numberOfInvariances");
-        } else{
-            barOperationResults.remove("numberOfInvariances");
         }}
 
     public void nextPage(ActionEvent actionEvent) throws IOException {
@@ -216,10 +156,7 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
 
         mutationSimulator = new MutationSimulator(mutator,iterations,comparators);
 
-        resources.put("mutationSimulator",mutationSimulator);
-        System.out.println(mutationSimulator);
-        controllerSimulationResult.setResources(resources);
-
+        controllerSimulationResult.setMutationSimulator(mutationSimulator);
         boolean sameSimulation = false;
         Simulation sim=null;
         for(Simulation item : simulations){
@@ -230,9 +167,6 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
         }
         if(sameSimulation && checkSimulation(sim)){
             simulation=sim;
-            sim.setListOfLabeledComparators(comparators);
-            for(LabeledComparator com:comparators)
-            System.out.println(com);
         } else{
             simResults = mutationSimulator.simulate();
             simulation = new Simulation(name,description,new Date(),simResults,comparators,resources);
@@ -240,6 +174,7 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
         controllerSimulationResult.setSimulation(simulation);
 
         controllerSimulationResult.initializeLoadedStage();
+        controllerSimulationResult.setResources(resources);
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
@@ -277,15 +212,15 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
     }
 
     private void initializeRadio() {
-         radioParametersGroup = new ToggleGroup();
+        radioParametersGroup = new ToggleGroup();
 
-         for(LabeledComparator comparator: comparators){
-             RadioButton radio = new RadioButton(comparator.getLabel());
-             radio.setOnAction(e->{
-                 chooseParameter(e);
-             });
-             radio.setToggleGroup(radioParametersGroup);
-         }
+        for(LabeledComparator comparator: comparators){
+            RadioButton radio = new RadioButton(comparator.getLabel());
+            radio.setOnAction(e->{
+                chooseParameter(e);
+            });
+            radio.setToggleGroup(radioParametersGroup);
+        }
     }
 
     private void initializeStatistics() {
@@ -324,8 +259,8 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
         HashMap<String,Object> simResources = sim.getResources();
 
         if(checkProbabilities((double[][][])simResources.get("probabilitiesOP")) &&
-        checkIterations((int)simResources.get("iterations")) &&
-        checkFragment((DNAFragment)simResources.get("fragment"))){
+                checkIterations((int)simResources.get("iterations")) &&
+                checkFragment((DNAFragment)simResources.get("fragment"))){
             return true;
         } else{
             return false;
@@ -349,27 +284,6 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
     private boolean checkIterations(int iterations){
         int iterationsToCheck = this.iterations;
         return iterationsToCheck == iterations;
-    }
-
-    private boolean checkComparators(ArrayList<LabeledComparator> comparators){
-        boolean contains = false;
-        ArrayList<LabeledComparator> comparatorsToCheck = this.comparators;
-        if(comparators.size()!=comparatorsToCheck.size()) {
-            return false;
-        } else{
-            for(LabeledComparator comparator : comparators) {
-                contains=false;
-                for (LabeledComparator comparatorToCheck : comparatorsToCheck) {
-                    if (comparatorToCheck.getLabel().equals(comparator.getLabel())) {
-                        contains=true;
-                    }
-                }
-                if (contains==false) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     private boolean checkFragment(DNAFragment fragment){
@@ -408,7 +322,7 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
 
     public void variateStatistic(ActionEvent actionEvent) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/VariateStatistic1.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/VariateStatistic2.fxml"));
 
         AnchorPane root = (AnchorPane) loader.load();
         ControllerVariateStatistic1 controllerVariateStatistic1 = loader.getController();

@@ -12,10 +12,12 @@ import simulation.logic.MutationSimulator;
 import simulation.logic.VariableSimulation;
 import simulation.statistics.ParameterIndex;
 import simulation.wrapper.Simulation;
+import simulation.comparators.LabeledComparator;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ControllerVariateStatistic1 extends ControllerMenu implements Initializable {
@@ -31,6 +33,7 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
     double[][][] variation;
     ArrayList<Simulation> simulationsList;
     ArrayList<ParameterIndex> parameterIndexList;
+    VariableSimulation variableSimulation;
 
     @FXML
     TextField iterationsField,variationField;
@@ -46,6 +49,13 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
         initializeProbabilitiesController();
     }
 
+    @Override
+    public void setResources(HashMap<String, Object> resources) {
+        super.setResources(resources);
+        if(resources.containsKey("mutationSimulator")){
+            mutationSimulator = (MutationSimulator)resources.get("mutationSimulator");
+        }
+    }
 
     private void initializeProbabilitiesController(){
         try {
@@ -60,10 +70,10 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
 
     public void nextPage(ActionEvent actionEvent) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/VariateStatistic2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/VariateStatistic3.fxml"));
         AnchorPane root = (AnchorPane) loader.load();
-        //ControllerVariateStatistic2 controllerVariateStatistic2 = loader.getController();
-        //controllerVariateStatistic2.mainPane=mainPane;
+        ControllerVariateStatistic3 controllerVariateStatistic3 = loader.getController();
+        controllerVariateStatistic3.mainPane=mainPane;
 
         mainPane.getChildren().clear();
         mainPane.getChildren().setAll(root.getChildren());
@@ -71,7 +81,19 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
         variation = controllerProbabilities.readProbabilitiesFromGrid();
         iterations = Integer.valueOf(iterationsField.getText());
 
-        simulationsList = new VariableSimulation(iterations, variation, simulation, mutationSimulator).getSimulation();
+        variableSimulation= new VariableSimulation(iterations, variation, simulation, mutationSimulator);
+        variableSimulation.executeSimulations();
+
+        ArrayList<LabeledComparator> comparators= simulation.getLabeledComparators();;
+
+        controllerVariateStatistic3.setResources(resources);
+
+        controllerVariateStatistic3.setSimulation(simulation);
+        controllerVariateStatistic3.setMutationSimulator(mutationSimulator);
+
+        controllerVariateStatistic3.setVariableSimulation(variableSimulation);
+        controllerVariateStatistic3.setComparators(comparators);
+        controllerVariateStatistic3.initializeLoadedStage();
 
         //controllerVariateStatistic2.setSimulationsList(simulationsList);
 
@@ -86,10 +108,7 @@ public class ControllerVariateStatistic1 extends ControllerMenu implements Initi
         */
 
 
-
-
         System.out.println(variation+" "+iterations);
-
 
 
         saveSimulation();

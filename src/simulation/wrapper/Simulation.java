@@ -92,6 +92,10 @@ public class Simulation implements Serializable {
         return list;*/
     }
 
+    public void setListOfLabeledComparators(ArrayList<LabeledComparator> listOfLabeledComparators) {
+        this.listOfLabeledComparators = listOfLabeledComparators;
+    }
+
     public ArrayList<LabeledComparator> getLabeledComparators(){
         return listOfLabeledComparators;
     }

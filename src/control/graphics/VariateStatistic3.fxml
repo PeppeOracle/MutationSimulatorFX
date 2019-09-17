@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.AreaChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="variateStatistic2AP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ControllerVariateStatistic3">
+<AnchorPane fx:id="simulationResultAP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ControllerVariateStatistic3">
     <children>
         <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -82,11 +79,16 @@
                                                 <Font size="21.0" />
                                             </font>
                                         </Label>
-                                        <HBox prefHeight="22.0" prefWidth="880.0">
+                                        <HBox fx:id="radioBox" prefHeight="22.0" prefWidth="880.0">
                                             <children>
-                                                <RadioButton fx:id="comparatorsRadio" mnemonicParsing="false" text="RadioButton" />
                                             </children>
                                         </HBox>
+                              <Label layoutX="30.0" layoutY="10.0" text="Selezione l'indice">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="comboIndex" prefWidth="150.0" />
                                         <Label text="Grafico">
                                             <font>
                                                 <Font size="21.0" />
@@ -95,17 +97,7 @@
                                                 <Insets top="15.0" />
                                             </VBox.margin>
                                         </Label>
-                                        <AnchorPane fx:id="areaChartAP" maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="603.0">
-                                 <children>
-                                    <AreaChart layoutX="14.0">
-                                      <xAxis>
-                                        <CategoryAxis side="BOTTOM" />
-                                      </xAxis>
-                                      <yAxis>
-                                        <NumberAxis side="LEFT" />
-                                      </yAxis>
-                                    </AreaChart>
-                                 </children></AnchorPane>
+                                        <AnchorPane fx:id="chartAP" maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="603.0" />
                                     </children>
                                     <padding>
                                         <Insets left="20.0" />
@@ -129,7 +121,7 @@
                                         </HBox>
                                     </top>
                                     <center>
-                                        <VBox fx:id="radioBox" prefHeight="303.0" prefWidth="190.0" spacing="5.0" BorderPane.alignment="CENTER">
+                                        <VBox fx:id="statisticsBox" prefHeight="303.0" prefWidth="190.0" spacing="5.0" BorderPane.alignment="CENTER">
                                             <BorderPane.margin>
                                                 <Insets bottom="10.0" left="8.0" top="10.0" />
                                             </BorderPane.margin>
@@ -141,17 +133,23 @@
                                 </BorderPane>
                             </right>
                             <bottom>
-                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <Button layoutX="930.0" layoutY="45.0" mnemonicParsing="false" onAction="#recentSimulations" prefWidth="150" text="Torna alla home">
+                                        <Button layoutX="770.0" layoutY="45.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="31.0" prefWidth="169.0" text="Indietro">
                                             <font>
                                                 <Font size="15.0" />
                                             </font>
+                                            <HBox.margin>
+                                                <Insets right="550.0" />
+                                            </HBox.margin>
                                         </Button>
                                     </children>
                                     <padding>
                                         <Insets right="10.0" />
                                     </padding>
+                                    <BorderPane.margin>
+                                        <Insets bottom="15.0" left="20.0" right="20.0" />
+                                    </BorderPane.margin>
                                 </HBox>
                             </bottom>
                         </BorderPane>

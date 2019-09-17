@@ -1,6 +1,7 @@
 package simulation.logic;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,7 +9,7 @@ import simulation.comparators.LabeledComparator;
 import simulation.wrapper.MutationResults;
 import simulation.wrapper.SimulationResults;
 
-public class MutationSimulator {
+public class MutationSimulator implements Serializable {
     private Mutator mutator;
     private int iterations;
     private ArrayList<LabeledComparator> listOfLabeledComparator;

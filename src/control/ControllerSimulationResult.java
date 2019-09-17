@@ -64,6 +64,14 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         initializeRadio();
     }
 
+    @Override
+    public void setResources(HashMap<String, Object> resources) {
+        super.setResources(resources);
+        if(resources.containsKey("mutationSimulator")){
+            mutationSimulator = (MutationSimulator)resources.get("mutationSimulator");
+        }
+    }
+
     private void initializeRadio() {
         radioParametersGroup = new ToggleGroup();
         RadioButton radio=null;
@@ -87,12 +95,33 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         Double numero = 123.1258965;
         numero = Integer.parseInt(formatter.format(numero));*/
 
+        Label positionIndex = new Label("Indici di posizione:");
+        positionIndex.setStyle("-fx-font-weight: bold");
         Label mean = new Label("Media: " + (float)parameterIndex.getMean());
         Label median = new Label("Mediana: " + (float)parameterIndex.getMedian());
+
+        String modas = "";
+        for(int i = 0; i < parameterIndex.getModa().size(); i++){
+            modas = modas + parameterIndex.getModa().get(i).toString()+"  ";
+        }
+        Label moda = new Label("Moda: " + modas);
+
+        Label variabilityIndex = new Label("Indici di variabilità:");
+        variabilityIndex.setStyle("-fx-font-weight: bold");
         Label standardDeviation = new Label("Deviazione Standard: " + (float)parameterIndex.getStandardDeviation());
         Label variance = new Label("Varianza: " + (float)parameterIndex.getVariance());
+        Label scartoMedioAssoluto = new Label("Scarto medio assoluto:" + parameterIndex.getScartoMedioAssoluto());
+        Label entropy = new Label("Entropia:" + parameterIndex.getEntropy());
+        Label ampiezzaIntervalloVariazione = new Label("Ampiezza intervallo variazione" + parameterIndex.getAmpiezzaIntervalloVariazione());
+        Label ceoffiecienteVariazione = new Label("Coefficiente di variazione" + parameterIndex.getCoefficienteDiVariazione());
+
+        Label shapeIndex = new Label("Indici di forma:");
+        shapeIndex.setStyle("-fx-font-weight: bold");
+        Label skewness = new Label("Indice di asimmetria:" + parameterIndex.getSkewness());
+        Label curtosi = new Label("Indice di curtosi:" + parameterIndex.getKurtosis());
+
         statisticsBox.getChildren().clear();
-        statisticsBox.getChildren().addAll(mean,median,standardDeviation,variance);
+        statisticsBox.getChildren().addAll(mean,median,moda,standardDeviation,variance,scartoMedioAssoluto,entropy,ampiezzaIntervalloVariazione,ceoffiecienteVariazione,skewness,curtosi);
     }
 
     private void initializeChart(){
@@ -187,6 +216,11 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         AnchorPane root = (AnchorPane) loader.load();
         ControllerVariateStatistic1 controllerVariateStatistic1 = loader.getController();
         controllerVariateStatistic1.mainPane = mainPane;
+        resources.put("mutationSimulator",mutationSimulator);
+        controllerVariateStatistic1.setResources(resources);
+        if(mutationSimulator==null){
+            mutationSimulator=new MutationSimulator((Mutator) resources.get("mutator"),(int) resources.get("iterations"),simulation.getLabeledComparators());
+        }
         controllerVariateStatistic1.setMutationSimulator(mutationSimulator);
         controllerVariateStatistic1.setSimulation(simulation);
 
@@ -203,6 +237,7 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         controllerNewSimulation4.mainPane = mainPane;
         controllerNewSimulation4.root = root;
 
+        resources.put("comparators",simulation.getLabeledComparators());
         controllerNewSimulation4.setResources((HashMap)resources.clone());
 
         mainPane.getChildren().clear();
