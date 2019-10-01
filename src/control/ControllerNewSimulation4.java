@@ -62,6 +62,9 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
     NumberOfMissenseMutationComparator aminoAcidsDifferenceComparator;
     AminoAcidsBooleanComparator aminoAcidsBooleanComparator;
     LengthMutationComparator lengthComparator;
+    NumberOfSilentMutationComparator silentComparator;
+    StopDifferenceComparator nonSenseComparator;
+    NumberOfSilentMutationBooleanComparator silentBooleanComparator;
 
     ArrayList<String> pieOperationResults;
     ArrayList<String> barOperationResults;
@@ -74,6 +77,10 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
         aminoAcidsDifferenceComparator = new NumberOfMissenseMutationComparator();
         aminoAcidsBooleanComparator = new AminoAcidsBooleanComparator();
         lengthComparator = new LengthMutationComparator();
+        silentComparator = new NumberOfSilentMutationComparator();
+        nonSenseComparator = new StopDifferenceComparator();
+        silentBooleanComparator = new NumberOfSilentMutationBooleanComparator();
+
         pieOperationResults = new ArrayList();
         barOperationResults = new ArrayList();
     }
@@ -145,8 +152,27 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
             comparators.add(lengthComparator);
         } else{
             comparators.remove(lengthComparator);
-            for(LabeledComparator comp : comparators)
-            System.out.println(comp);
+        }}
+
+    public void checkNUMBEROFSILENTMUTATION(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(silentComparator);
+        } else{
+            comparators.remove(silentComparator);
+        }}
+
+    public void checkNUMBEROFNONSENSEMUTATION(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(nonSenseComparator);
+        } else{
+            comparators.remove(nonSenseComparator);
+        }}
+
+    public void checkNUMBEROFSILENTBOOLEANMUTATION(ActionEvent actionEvent) {
+        if(((CheckBox)actionEvent.getSource()).isSelected()){
+            comparators.add(silentBooleanComparator);
+        } else{
+            comparators.remove(silentBooleanComparator);
         }}
 
     public void checkInserimentoPie(ActionEvent actionEvent) {
@@ -217,7 +243,6 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
         mutationSimulator = new MutationSimulator(mutator,iterations,comparators);
 
         resources.put("mutationSimulator",mutationSimulator);
-        System.out.println(mutationSimulator);
         controllerSimulationResult.setResources(resources);
 
         boolean sameSimulation = false;
@@ -231,8 +256,6 @@ public class ControllerNewSimulation4 extends ControllerMenu implements Initiali
         if(sameSimulation && checkSimulation(sim)){
             simulation=sim;
             sim.setListOfLabeledComparators(comparators);
-            for(LabeledComparator com:comparators)
-            System.out.println(com);
         } else{
             simResults = mutationSimulator.simulate();
             simulation = new Simulation(name,description,new Date(),simResults,comparators,resources);

@@ -67,7 +67,7 @@ public class ControllerVariateStatistic3 extends ControllerMenu implements Initi
     public void initialize(URL location, ResourceBundle resources) {
         radioBox.setSpacing(10);
         statisticsBox.setSpacing(5);
-        comboIndex.getItems().addAll(mean,median,deviation,variance,scartoMedioAssoluto,entropia,ampiezzaIntervalloVariazione,coefficienteDiVariazione,indiceDiAsimmetria,indiceDiCurtosi);
+        comboIndex.getItems().addAll(mean,median,deviation,variance,scartoMedioAssoluto,entropia,ampiezzaIntervalloVariazione,coefficienteDiVariazione,indiceDiAsimmetria,indiceDiCurtosi,frequence);
 
         comboIndex.valueProperty().addListener((obs, oldItem, newItem) -> {
             setValues(newItem);
@@ -221,7 +221,17 @@ public class ControllerVariateStatistic3 extends ControllerMenu implements Initi
                 break;
             }
             case entropia:{
-
+                for(int i=0;i<parameterIndexes.length;i++){
+                    values[i]=parameterIndexes[i].getEntropy();
+                }
+                break;
+            }
+            case frequence:{
+                for(int i=0;i<parameterIndexes.length;i++){
+                    System.out.println("NUM " + i + " FREQ " + parameterIndexes[i].getPointsFrequency().get(i).getY());
+                    values[i]=parameterIndexes[i].getPointsFrequency().get(1).getY();
+                }
+                break;
             }
             default: {
                 break;

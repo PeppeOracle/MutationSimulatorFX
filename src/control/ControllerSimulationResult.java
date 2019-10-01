@@ -1,5 +1,6 @@
 package control;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -76,6 +77,7 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         radioParametersGroup = new ToggleGroup();
         RadioButton radio=null;
         for(LabeledComparator comparator: simulation.getLabeledComparators()){
+            printParameters(comparator);
             radio = new RadioButton(comparator.getLabel());
             radio.setOnAction(e->{
                 comparatorAct=comparator;
@@ -86,6 +88,21 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
             comparatorAct=comparator;
         }
         radio.fire();
+    }
+
+    private void printParameters(LabeledComparator comparator){
+        simResults = simulation.getListOfSimulationResults();
+        parameterIndex = new ParameterIndex(comparator.getLabel(), simResults);
+        System.out.println();
+        System.out.println(comparator.getLabel());
+        System.out.println("MEDIA: " + parameterIndex.getMean());
+        System.out.println("MEDIANA: " + parameterIndex.getMedian());
+
+        if(comparator instanceof LabeledCategoryComparator) {
+            for (int i = 0; i < ((LabeledCategoryComparator) comparator).getCategoriesCounter(); i++) {
+                System.out.println("CATEGORIA "+((LabeledCategoryComparator) comparator).getCategory(i) + ": " + parameterIndex.getPointsFrequency().get(i).getY());
+            }
+        }
     }
 
     private void initializeStatistics() {
@@ -132,6 +149,7 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         yAxis.setLabel("Frequenza");
 
         if(comparatorAct instanceof LabeledCategoryComparator) {
+
             chart = new PieChart();
 
             ObservableList<PieChart.Data> dataSeries1 = FXCollections.observableArrayList();
@@ -139,6 +157,14 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
                 PieChart.Data data = new PieChart.Data(((LabeledCategoryComparator) comparatorAct).getCategory(i), parameterIndex.getPointsFrequency().get(i).getY());
                 dataSeries1.add(data);
             }
+
+            dataSeries1.forEach(data ->
+                    data.nameProperty().bind(
+                            Bindings.concat(
+                                    data.getName(), " ", data.pieValueProperty()
+                            )
+                    )
+            );
             ((PieChart)chart).setData(dataSeries1);
         }
         else{
@@ -148,7 +174,7 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
             dataSeries1.setName(parameterIndex.getName());
 
             for(Point point : parameterIndex.getPointsFrequency()){
-                dataSeries1.getData().add(new XYChart.Data<String, Number>(""+point.getX(),point.getY()));
+                dataSeries1.getData().add(new XYChart.Data<String, Number>(""+(int)point.getX(),point.getY()));
             }
 
             ((BarChart)chart).getData().add(dataSeries1);

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class StopDifferenceComparator extends LabeledComparator implements Serializable {
     public StopDifferenceComparator() {
-        super("STOP-DIFF", "Numero di stop creati");
+        super("NUMBER-OF-NONSENSE-MUTATION", "Numero di stop creati");
     }
 
     @Override

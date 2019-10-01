@@ -53,6 +53,8 @@ public class MutationSimulator implements Serializable {
             map.put(item.getLabel(), diff);
         }
 
+        mutationResults.setDnaFragmentMutated(null);
+
         SimulationResults mutationSimulatorResults = new SimulationResults(mutationResults, map);
         return mutationSimulatorResults;
     }
@@ -65,6 +67,7 @@ public class MutationSimulator implements Serializable {
             results.add(executeMutation());
         }
 
+        System.gc();
         return results;
     }
 

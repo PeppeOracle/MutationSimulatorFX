@@ -19,16 +19,14 @@ public class AminoAcidsBooleanComparator extends LabeledCategoryComparator{
         ArrayList<AminoAcid> aminoAcids1 = fragment1.getAminoAcids();
         ArrayList<AminoAcid> aminoAcids2 = fragment2.getAminoAcids();
 
-        int different=0;
         int min=Math.min(aminoAcids1.size(), aminoAcids2.size());
 
         for(int i=0;i<min; i++){
             if(aminoAcids1.get(i)!=aminoAcids2.get(i)) {
-                different=1;
-                break;
+                return 1;
             }
         }
 
-        return different;
+        return 0;
     }
 }

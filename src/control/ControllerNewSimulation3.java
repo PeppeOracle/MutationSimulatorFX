@@ -74,7 +74,9 @@ public class ControllerNewSimulation3 extends ControllerMenu implements Initiali
         controllerNewSimulation4.root=root;
 
         //resources.put("operationsProbabilities",controllerProbabilities);
-        resources.put("probabilitiesOP",controllerProbabilities.readProbabilitiesFromGrid());
+        double[][][] probabilities = controllerProbabilities.readProbabilitiesFromGrid();
+        System.out.println("PROBABILITA' = " + probabilities[2][2][2]);
+        resources.put("probabilitiesOP",probabilities);
         resources.put("equalProbabilitiesOP",controllerProbabilities.getEqualProbabilities());
         resources.put("mutator",mutator);
 

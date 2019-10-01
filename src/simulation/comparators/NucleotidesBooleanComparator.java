@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class NucleotidesBooleanComparator extends LabeledCategoryComparator{
 
-    private static final String[] categories= {"Non Silente","Silente"};
+    private static final String[] categories= {"Nucleotidi immutati","Nucleotide mutato"};
 
     public NucleotidesBooleanComparator(){
         super("NUCLEOTIDES-BOOLEANDIFF", "Numero di sequenze con almeno un Nucleotide diverso",categories);
@@ -20,11 +20,10 @@ public class NucleotidesBooleanComparator extends LabeledCategoryComparator{
 
         for(int i=0;i<min; i++){
             if(fragment1.get(i)!=fragment2.get(i)) {
-                different=1;
-                break;
+                return 1;
             }
         }
 
-        return different;
+        return 0;
     }
 }

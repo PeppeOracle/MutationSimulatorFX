@@ -113,6 +113,7 @@ public class ControllerNewSimulation2 extends ControllerMenu implements Initiali
         } else{
             resources.put("fragmentSequence",controllerRandom.getSequence());
         }
+        //System.out.println(StringConverter.convertListToString(fragmentToMutate.getNucleotides()));
 
         controllerNewSimulation3.setResources(resources);
 

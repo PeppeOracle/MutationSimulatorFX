@@ -85,7 +85,7 @@
                      <center>
                         <VBox fx:id="radioBox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
-                              <Insets left="100.0" right="100.0" top="100.0" />
+                              <Insets left="100.0" right="100.0" top="40.0" />
                            </BorderPane.margin>
                            <children>
                               <Label text="Scelta parametri">
@@ -274,7 +274,7 @@
                                  <children>
                                     <HBox prefHeight="0.0" prefWidth="500.0">
                                        <children>
-                                          <Label text="Statistiche su numero di Amminoacidi diversi">
+                                          <Label text="Statistiche su numero di mutazioni missenso">
                                              <font>
                                                 <Font size="21.0" />
                                              </font>
@@ -308,12 +308,29 @@
                                     </HBox>
                                     <HBox prefHeight="0.0" prefWidth="500.0">
                                        <children>
-                                          <Label text="Statistiche sul numero di sequenze di Amminoacidi diverse">
+                                          <Label text="Statistiche sul numero di mutazioni missenso boolean">
                                              <font>
                                                 <Font size="21.0" />
                                              </font>
                                           </Label>
                                           <CheckBox fx:id="AMINOACIDSSINGLEDIFF" mnemonicParsing="false" onAction="#checkAMINOACIDSSINGLEDIFF" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="6.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </CheckBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="15.0" layoutY="165.0" prefHeight="0.0" prefWidth="500.0">
+                                       <children>
+                                          <Label text="Statistiche sul numero di mutazioni silenti boolean">
+                                             <font>
+                                                <Font size="21.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox fx:id="NUMBEROFSILENTBOOLEANMUTATION" mnemonicParsing="false" onAction="#checkNUMBEROFSILENTBOOLEANMUTATION" prefHeight="14.0" prefWidth="14.0" selected="false">
                                              <HBox.margin>
                                                 <Insets left="10.0" top="6.0" />
                                              </HBox.margin>
@@ -348,6 +365,40 @@
                                              </font>
                                           </Label>
                                           <CheckBox fx:id="LENGTHDIFF" mnemonicParsing="false" onAction="#checkLENGTHDIFF" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="6.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </CheckBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="15.0" layoutY="103.0" prefHeight="0.0" prefWidth="500.0">
+                                       <children>
+                                          <Label text="Statistiche sul numero di mutazioni silenti">
+                                             <font>
+                                                <Font size="21.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox fx:id="NUMBEROFSILENTMUTATION" mnemonicParsing="false" onAction="#checkNUMBEROFSILENTMUTATION" prefHeight="14.0" prefWidth="14.0" selected="false">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="6.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </CheckBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="15.0" layoutY="165.0" prefHeight="0.0" prefWidth="500.0">
+                                       <children>
+                                          <Label text="Statistiche sul numero di mutazioni non senso">
+                                             <font>
+                                                <Font size="21.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox fx:id="NUMBEROFNONSENSEMUTATION" mnemonicParsing="false" onAction="#checkNUMBEROFNONSENSEMUTATION" prefHeight="14.0" prefWidth="14.0" selected="false">
                                              <HBox.margin>
                                                 <Insets left="10.0" top="6.0" />
                                              </HBox.margin>

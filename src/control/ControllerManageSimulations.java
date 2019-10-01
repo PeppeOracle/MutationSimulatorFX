@@ -25,6 +25,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ControllerManageSimulations extends ControllerMenu implements Initializable{
@@ -154,7 +155,21 @@ public class ControllerManageSimulations extends ControllerMenu implements Initi
                 mainPane.getChildren().setAll(root.getChildren());
             });
             optionImages.getChildren().get(1).setOnMouseReleased(e->{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("graphics/NewSimulation1.fxml"));
+                AnchorPane root=null;
 
+                try {
+                    root = (AnchorPane) loader.load();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                ControllerNewSimulation1 controllerNewSimulation1= loader.getController();
+                controllerNewSimulation1.mainPane=mainPane;
+
+                controllerNewSimulation1.setResources((HashMap)simulation.getResources().clone());
+
+                mainPane.getChildren().clear();
+                mainPane.getChildren().setAll(root.getChildren());
             });
             optionImages.getChildren().get(2).setOnMouseReleased(e->{
                 simulations.remove(simulation);
