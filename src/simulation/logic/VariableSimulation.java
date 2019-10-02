@@ -66,10 +66,8 @@ public class VariableSimulation {
                         p[x][y][z] = pPivot;
                     }
                     p[x][3][z] = 1 - (p[x][0][z] + p[x][1][z] + p[x][2][z]);
-                    System.out.println(p[x][3][z]);
                 }
             }
-
 
             if (i < pivot) {
                 sim.setName(simulation.getName() + " -" + (i % pivot));

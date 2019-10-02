@@ -228,7 +228,6 @@ public class ControllerVariateStatistic3 extends ControllerMenu implements Initi
             }
             case frequence:{
                 for(int i=0;i<parameterIndexes.length;i++){
-                    System.out.println("NUM " + i + " FREQ " + parameterIndexes[i].getPointsFrequency().get(i).getY());
                     values[i]=parameterIndexes[i].getPointsFrequency().get(1).getY();
                 }
                 break;
@@ -237,10 +236,7 @@ public class ControllerVariateStatistic3 extends ControllerMenu implements Initi
                 break;
             }
         }
-        System.out.println(index);
-        for(double value : values){
-            System.out.println(value);
-        }
+        this.index=index;
     }
 
     public void chooseParameter(ActionEvent actionEvent){
@@ -259,6 +255,12 @@ public class ControllerVariateStatistic3 extends ControllerMenu implements Initi
             values=new double[parameterIndexes.length];
         }
         setValues(comboIndex.getValue());
+
+        System.out.println(index);
+        for(double value : values){
+            System.out.println(value);
+        }
+
         initializeChart();
         initializeStatistics();
     }
