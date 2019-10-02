@@ -28,6 +28,8 @@ public class NumberOfMissenseMutationComparator extends LabeledComparator{
 
         if (aminoAcids1.size()-min > 0){
             differences+=aminoAcids1.size()-min;
+        } else {
+            differences+=aminoAcids2.size()-min;
         }
 
         return differences;
