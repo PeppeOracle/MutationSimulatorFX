@@ -97,6 +97,9 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         System.out.println(comparator.getLabel());
         System.out.println("MEDIA: " + parameterIndex.getMean());
         System.out.println("MEDIANA: " + parameterIndex.getMedian());
+        for(Object item : parameterIndex.getModa()){
+            System.out.println("MODA " + item);
+        }
 
         if(comparator instanceof LabeledCategoryComparator) {
             for (int i = 0; i < ((LabeledCategoryComparator) comparator).getCategoriesCounter(); i++) {
@@ -200,6 +203,11 @@ public class ControllerSimulationResult extends ControllerMenu implements Initia
         //String comparatorLabel=((RadioButton)actionEvent.getSource()).getText();
         String comparatorLabel = comparatorAct.getLabel();
         parameterIndex = new ParameterIndex(comparatorLabel, simResults);
+
+        System.out.println(comparatorLabel);
+        for(SimulationResults item : simResults){
+            System.out.println(item.getHashMapOfLabeledComparator().get(comparatorLabel));
+        }
         initializeChart();
         initializeStatistics();
     }
