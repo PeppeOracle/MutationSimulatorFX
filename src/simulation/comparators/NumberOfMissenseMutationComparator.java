@@ -18,7 +18,11 @@ public class NumberOfMissenseMutationComparator extends LabeledComparator{
         ArrayList<AminoAcid> aminoAcids2 = fragment2.getAminoAcids();
 
         int differences=0;
-        int min=Math.min(aminoAcids1.size(), aminoAcids2.size());
+
+        int n = aminoAcids1.size();
+        int m = aminoAcids2.size();
+
+        int min=Math.min(n,m);
 
         for(int i=0;i<min; i++){
             if(aminoAcids1.get(i)!=aminoAcids2.get(i)) {
@@ -26,10 +30,14 @@ public class NumberOfMissenseMutationComparator extends LabeledComparator{
             }
         }
 
-        if (aminoAcids1.size()-min > 0){
-            differences+=aminoAcids1.size()-min;
-        } else {
-            differences+=aminoAcids2.size()-min;
+//        if (aminoAcids1.size()-min > 0){
+//            differences+=aminoAcids1.size()-min;
+//        } else {
+//            differences+=aminoAcids2.size()-min;
+//        }
+
+        if(n>m){
+            differences = differences + (n-m);
         }
 
         return differences;

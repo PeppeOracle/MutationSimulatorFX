@@ -107,14 +107,15 @@ public class ParameterIndex extends DescriptiveStatistics {
     }
 
     public double getEntropy(){
-        double sum = 0;
-        for(int i = 0; i < dataFrequency.getRange(); i++){
+        int n = dataFrequency.getRange();
+        double entropy = 0;
+        for(int i = 0; i < n; i++){
             double value = dataFrequency.getPct(i);
-            if(value < 1E-15){
-                sum= sum + value*Math.log(value);
+            if(value > 1E-15){
+                entropy = entropy + value*Math.log(value);
             }
         }
-        return 0;
+        return -entropy;
     }
 
 

@@ -57,6 +57,10 @@ public class DNAFragment implements Cloneable, Serializable {
         return nucleotidesSequence.size();
     }
 
+    public int getNumberOfCodon(){
+        return nucleotidesSequence.size() / 3;
+    }
+
     public Nucleotide get(int position) {
         return nucleotidesSequence.get(position);
     }

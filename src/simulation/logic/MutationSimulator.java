@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import simulation.comparators.LabeledComparator;
+import simulation.comparators.NumberOfImmutateCodon;
 import simulation.wrapper.MutationResults;
 import simulation.wrapper.SimulationResults;
 
@@ -18,6 +19,8 @@ public class MutationSimulator implements Serializable {
         this.mutator = mutator;
         this.iterations = iterations;
         this.listOfLabeledComparator = listOfLabeledComparator;
+
+        this.listOfLabeledComparator.add(new NumberOfImmutateCodon());
     }
 
     public Mutator getMutator() {
@@ -53,9 +56,10 @@ public class MutationSimulator implements Serializable {
             map.put(item.getLabel(), diff);
         }
 
-        mutationResults.setDnaFragmentMutated(null);
-
         SimulationResults mutationSimulatorResults = new SimulationResults(mutationResults, map);
+        mutationSimulatorResults.setMutazioniMissensoBernoulli(mutator.getFragmentToMutate(),mutationResults.getDnaFragmentMutated());
+        mutationSimulatorResults.setMutazioniSilenceBernoulli(mutator.getFragmentToMutate(),mutationResults.getDnaFragmentMutated());
+        mutationSimulatorResults.setMutazioniImmutatoBernoulli(mutator.getFragmentToMutate(),mutationResults.getDnaFragmentMutated());
         return mutationSimulatorResults;
     }
 
@@ -67,7 +71,6 @@ public class MutationSimulator implements Serializable {
             results.add(executeMutation());
         }
 
-        System.gc();
         return results;
     }
 
@@ -78,8 +81,51 @@ public class MutationSimulator implements Serializable {
             results.add(executeMutation());
         }
 
+        int[][] vettoreMissenso = new int[iterations][results.get(0).getMutationResults().getSize()/3];
+        int[][] vettoreSilence = new int[iterations][results.get(0).getMutationResults().getSize()/3];
+        int[][] vettoreImmutato = new int[iterations][results.get(0).getMutationResults().getSize()/3];
+
+
+        for(int i = 0; i < iterations; i++){
+            vettoreMissenso[i] = results.get(i).getMutazioniMissensoBernoulli();
+            vettoreSilence[i] = results.get(i).getMutazioniSilenceBernoulli();
+            vettoreImmutato[i] = results.get(i).getMutazioniImmutatoBernoulli();
+        }
+
+        System.out.println("VETTORE MISSENSO");
+        double stimeMISS[] = vettoreStime(vettoreMissenso,iterations,results.get(0).getMutationResults().getSize()/3);
+        System.out.println("VETTORE SILENCE");
+        double stimeSIL[] = vettoreStime(vettoreSilence,iterations,results.get(0).getMutationResults().getSize()/3);
+        System.out.println("VETTORE IMMUTATO");
+        double stimeIMM[] = vettoreStime(vettoreImmutato,iterations,results.get(0).getMutationResults().getSize()/3);
+
+//        System.out.println("STIME");
+//        double stimeCHECK[] = new double[results.get(0).getMutationResults().getSize()/3];
+//        for(int i = 0; i < stimeCHECK.length; i++){
+//            stimeCHECK[i] = stimeMISS[i] + stimeSIL[i] + stimeIMM[i];
+//            System.out.println(stimeCHECK[i]);
+//        }
+
+
         return results;
     }
+
+    private static double[] vettoreStime(int[][] risultati, int numRighe, int numColonne){
+        double[] stime = new double[numColonne];
+
+        int sum;
+
+        for(int j = 0; j < numColonne; j++){
+            sum = 0;
+            for(int i = 0; i < numRighe; i++){
+                sum = sum + risultati[i][j];
+            }
+            stime[j] = 0;
+            System.out.println(sum/(double)numRighe);
+        }
+        return stime;
+    }
+
 
 
 }
